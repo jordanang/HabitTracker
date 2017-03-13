@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
+
 public class CreateHabitFragment extends DialogFragment {
 
     int TIME_PICKER_REQUEST_CODE = 100;
@@ -94,6 +96,7 @@ public class CreateHabitFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 TimePickerFragment newTimePickerFragment = new TimePickerFragment();
+
                 newTimePickerFragment.setTargetFragment(CreateHabitFragment.this, TIME_PICKER_REQUEST_CODE);
                 newTimePickerFragment.show(getFragmentManager(), "timeFragment");
             }
@@ -105,7 +108,8 @@ public class CreateHabitFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 //Get values from widget and store in variables
-                String habit = habitEditText.getText().toString();
+                String habitTitle = habitEditText.getText().toString();
+
                 boolean[] checked = new boolean[7];
                 checked[0] = sundayCheckbox.isChecked();
                 checked[1] = mondayCheckbox.isChecked();
@@ -115,7 +119,13 @@ public class CreateHabitFragment extends DialogFragment {
                 checked[5] = fridayCheckbox.isChecked();
                 checked[6] = saturdayCheckbox.isChecked();
 
-                //addItem(title, detail, checked, hour, minute);
+                //Create new instance of habit item
+                HabitItem newHabitItem = new HabitItem(habitTitle, checked, repeatHour, repeatMinute);
+
+                //Add new item to list
+                habitList.add(newHabitItem);
+
+                Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_SHORT).show();
 
                 dismiss();
             }
