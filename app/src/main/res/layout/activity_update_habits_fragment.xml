@@ -10,6 +10,27 @@
     android:orientation="vertical"
     tools:context="edu.csb.cs.cs185.jordanang.habittracker.UpdateHabitsFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Update today's habits"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Check box if completed today"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

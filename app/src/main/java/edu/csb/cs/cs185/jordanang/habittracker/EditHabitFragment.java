@@ -188,6 +188,7 @@ public class EditHabitFragment extends DialogFragment {
                 Intent intent = new Intent(getActivity().getIntent());
                 dismiss();
                 getActivity().finish();
+                getActivity().overridePendingTransition(0,0);
                 startActivity(intent);
             }
         });

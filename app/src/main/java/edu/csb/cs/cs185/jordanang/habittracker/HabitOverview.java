@@ -3,7 +3,6 @@ package edu.csb.cs.cs185.jordanang.habittracker;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -46,6 +45,7 @@ public class HabitOverview extends AppCompatActivity {
         TextView monthPercentage_tv = (TextView) findViewById(R.id.monthPercentage);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.overviewProgressBar);
         TextView total_tv = (TextView) findViewById(R.id.total_textview);
+        TextView best_tv = (TextView) findViewById(R.id.bestStreak_textview);
         TextView currentStreak_tv = (TextView) findViewById(R.id.currentStreak_textview);
         GraphView graph = (GraphView) findViewById(R.id.graph);
         FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
@@ -71,66 +71,29 @@ public class HabitOverview extends AppCompatActivity {
         habitQuestion_tv.setText(question);
 
         //Setup days to repeat
-        String days = "";
-        String[] dayAcronym = {"SU", "M", "T", "W", "R", "F", "SA"};
-        boolean noDays = true;
-        for(int i = 0; i < 7; i++){
-            if(currentItem.daysToRepeat[i] == true){
-                days = days + dayAcronym[i];
-                if(i < 6 ){
-                    days = days + " ";
-                }
-                noDays = false;
-            }
-        }
-        if(noDays){
+        if(currentItem.someDayChosen() == false){
             daysToRepeat_tv.setText("No days to remind chosen");
         } else {
-            daysToRepeat_tv.setText(days);
+            daysToRepeat_tv.setText(currentItem.createRepeatDaysString());
         }
 
         //Setup time to repeat
-        int repeatHour = currentItem.hourToRepeat;
-        int repeatMinute = currentItem.minuteToRepeat;
-
-        String hourString;
-        String minuteString;
-        String AMPM;
-
-        if(repeatHour == 0){
-            hourString = "12";
-            AMPM = "AM";
-        } else if(repeatHour >= 13){
-            hourString = "" + (repeatHour - 12);
-            AMPM = "PM";
-        } else {
-            hourString = "" + repeatHour;
-            AMPM = "AM";
-        }
-
-        if(repeatMinute <10) {
-            minuteString = "0" + repeatMinute;
-        } else {
-            minuteString = "" + repeatMinute;
-        }
-
-        timeToRepeat_tv.setText(hourString + ":" + minuteString + " " + AMPM);
+        timeToRepeat_tv.setText(currentItem.createTimeString());
 
         //Setup current streak
         String currentStreak_string = "" + currentItem.currentStreak;
         currentStreak_tv.setText(currentStreak_string);
 
+        //Setup best streak
+        String bestStreak_string = "" + currentItem.bestStreak;
+        best_tv.setText(bestStreak_string);
+
         //Setup total
         String total_string = "" + currentItem.total;
         total_tv.setText(total_string);
 
-        //TODO: Setup percentage of month
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH) + 1;
-        int numDaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        int currentMonthPercentage = 66;
+        //Setup month percentage
+        int currentMonthPercentage = currentItem.getThisMonthsPercentage();
         String currentMonthPercentage_string = "" + currentMonthPercentage + "%";
         monthPercentage_tv.setText(currentMonthPercentage_string);
 
@@ -156,7 +119,7 @@ public class HabitOverview extends AppCompatActivity {
                 new DataPoint(-1, 4),
                 new DataPoint(0, 7)
         });
-        series.setColor(Color.GREEN);
+        series.setColor(Color.parseColor("#00bcd4"));
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(10);
         graph.addSeries(series);
