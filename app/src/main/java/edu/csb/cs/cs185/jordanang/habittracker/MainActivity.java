@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -76,8 +77,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.updateMenuSelection) {
+            if(habitList.size() == 0){
+                Toast.makeText(getApplicationContext(), "There are no habit items created", Toast.LENGTH_SHORT).show();
+            } else {
+                UpdateHabitsFragment newDialogFragment = new UpdateHabitsFragment();
+                newDialogFragment.show(getSupportFragmentManager(), "updateDialog");
+                return true;
+            }
+
         }
 
         return super.onOptionsItemSelected(item);

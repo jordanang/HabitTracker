@@ -2,6 +2,7 @@ package edu.csb.cs.cs185.jordanang.habittracker;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
@@ -40,7 +45,9 @@ public class HabitOverview extends AppCompatActivity {
         TextView timeToRepeat_tv = (TextView) findViewById(R.id.timeToRepeat);
         TextView monthPercentage_tv = (TextView) findViewById(R.id.monthPercentage);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.overviewProgressBar);
+        TextView total_tv = (TextView) findViewById(R.id.total_textview);
         TextView currentStreak_tv = (TextView) findViewById(R.id.currentStreak_textview);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
         FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
 
         //------------Set-up views with proper information from habit item-----------
@@ -58,8 +65,9 @@ public class HabitOverview extends AppCompatActivity {
         });
 
         //Setup habit question
-        String question = "Did you ";
-        question = question + currentItem.habitTitle + " today?";
+        String habitTitle = currentItem.habitTitle;
+        habitTitle = habitTitle.substring(0, habitTitle.length()).toLowerCase();
+        String question = "Did you " + habitTitle + " today?";
         habitQuestion_tv.setText(question);
 
         //Setup days to repeat
@@ -108,6 +116,14 @@ public class HabitOverview extends AppCompatActivity {
 
         timeToRepeat_tv.setText(hourString + ":" + minuteString + " " + AMPM);
 
+        //Setup current streak
+        String currentStreak_string = "" + currentItem.currentStreak;
+        currentStreak_tv.setText(currentStreak_string);
+
+        //Setup total
+        String total_string = "" + currentItem.total;
+        total_tv.setText(total_string);
+
         //TODO: Setup percentage of month
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
@@ -118,12 +134,32 @@ public class HabitOverview extends AppCompatActivity {
         String currentMonthPercentage_string = "" + currentMonthPercentage + "%";
         monthPercentage_tv.setText(currentMonthPercentage_string);
 
-        //Setup current streak
-        String currentStreak_string = "" + currentItem.currentStreak;
-        currentStreak_tv.setText(currentStreak_string);
-
         //Setup progress bar
         progressBar.setProgress(currentMonthPercentage);
+
+        //Set up graph
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(7);
+        graph.getViewport().setMinX(-8);
+        graph.getViewport().setMaxX(0);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("# weeks ago");
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(-8, 1),
+                new DataPoint(-7, 5),
+                new DataPoint(-6, 3),
+                new DataPoint(-5, 4),
+                new DataPoint(-4, 1),
+                new DataPoint(-3, 5),
+                new DataPoint(-2, 3),
+                new DataPoint(-1, 4),
+                new DataPoint(0, 7)
+        });
+        series.setColor(Color.GREEN);
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(10);
+        graph.addSeries(series);
 
         //----------------------------------------------------------------------------
 

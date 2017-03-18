@@ -13,6 +13,9 @@ public class HabitItem {
 
     int currentStreak;
     int bestStreak;
+    int total;
+
+    boolean completedHabitToday;
 
     HabitItem(){
         //Default Constructor
@@ -26,5 +29,8 @@ public class HabitItem {
 
         currentStreak = 0;
         bestStreak = 0;
+        total = 0;
+
+        completedHabitToday = false;
     }
 }

@@ -7,12 +7,6 @@
     android:gravity="center_horizontal"
     tools:context="edu.csb.cs.cs185.jordanang.habittracker.HabitOverview">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.design.widget.AppBarLayout>
-
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

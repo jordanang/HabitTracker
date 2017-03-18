@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.csb.cs.cs185.jordanang.habittracker.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/updateMenuSelection"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Update today's habits"
         app:showAsAction="never" />
 </menu>

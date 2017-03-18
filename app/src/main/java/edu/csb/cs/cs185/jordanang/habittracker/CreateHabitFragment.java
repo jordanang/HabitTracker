@@ -123,6 +123,9 @@ public class CreateHabitFragment extends DialogFragment {
                 //Get values from widget and store in variables
                 String habitTitle = habitEditText.getText().toString();
 
+                if(habitTitle.length() >= 2) {
+                    habitTitle = habitTitle.substring(0, 1).toUpperCase() + habitTitle.substring(1);
+                }
 
                 boolean[] checked = new boolean[7];
                 checked[0] = sundayCheckbox.isChecked();
