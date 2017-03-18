@@ -152,6 +152,12 @@ public class EditHabitFragment extends DialogFragment {
             }
         });
 
+        discardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {

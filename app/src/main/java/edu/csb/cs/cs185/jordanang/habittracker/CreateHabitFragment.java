@@ -107,13 +107,22 @@ public class CreateHabitFragment extends DialogFragment {
             }
         });
 
+        discardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //Get values from widget and store in variables
                 String habitTitle = habitEditText.getText().toString();
+
 
                 boolean[] checked = new boolean[7];
                 checked[0] = sundayCheckbox.isChecked();
@@ -124,18 +133,24 @@ public class CreateHabitFragment extends DialogFragment {
                 checked[5] = fridayCheckbox.isChecked();
                 checked[6] = saturdayCheckbox.isChecked();
 
-                //Create new instance of habit item
-                HabitItem newHabitItem = new HabitItem(habitTitle, checked, repeatHour, repeatMinute);
+                if(habitTitle.equals("")) {
+                    Toast.makeText(getContext(), "Please enter a habit title", Toast.LENGTH_SHORT).show();
+                }
+                 else {
+                    //Create new instance of habit item
+                    HabitItem newHabitItem = new HabitItem(habitTitle, checked, repeatHour, repeatMinute);
 
-                //Add new item to list
-                habitList.add(newHabitItem);
+                    //Add new item to list
+                    habitList.add(newHabitItem);
 
-                Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getActivity().getIntent());
-                dismiss();
-                getActivity().finish();
-                startActivity(intent);
+                    Intent intent = new Intent(getActivity().getIntent());
+                    dismiss();
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(0,0);
+                    startActivity(intent);
+                }
             }
         });
 

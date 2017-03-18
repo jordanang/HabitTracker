@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putInt("POSITION", i);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
+                finish();
             }
         });
     }

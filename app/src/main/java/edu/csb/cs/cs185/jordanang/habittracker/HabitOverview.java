@@ -1,6 +1,7 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,15 @@ import android.widget.TextView;
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
 public class HabitOverview extends AppCompatActivity {
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        finish();
+    }
 
     @TargetApi(Build.VERSION_CODES.N)
     @Override
