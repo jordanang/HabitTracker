@@ -15,10 +15,11 @@ import android.widget.Toast;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
-public class CreateHabitFragment extends DialogFragment {
+public class EditHabitFragment extends DialogFragment {
 
     int TIME_PICKER_REQUEST_CODE = 100;
 
+    TextView dialogTitle;
     EditText habitEditText;
     CheckBox sundayCheckbox;
     CheckBox mondayCheckbox;
@@ -34,6 +35,7 @@ public class CreateHabitFragment extends DialogFragment {
 
     int repeatHour;
     int repeatMinute;
+    int position;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,8 +80,14 @@ public class CreateHabitFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        //Grab item being edited
+        position = getArguments().getInt("POSITION");
+        final HabitItem currentItem = habitList.get(position);
+
         View v = inflater.inflate(R.layout.activity_create_habit, container, false);
 
+        dialogTitle = (TextView) v.findViewById(R.id.dialogTitle);
         habitEditText = (EditText) v.findViewById(R.id.habitEditText);
         sundayCheckbox = (CheckBox) v.findViewById(R.id.sundayCheckbox);
         mondayCheckbox = (CheckBox) v.findViewById(R.id.mondayCheckbox);
@@ -93,16 +101,53 @@ public class CreateHabitFragment extends DialogFragment {
         discardButton = (Button) v.findViewById(R.id.discardButton);
         saveButton = (Button) v.findViewById(R.id.saveButton);
 
-        repeatHour = 9;
-        repeatMinute = 30;
-        timeTextView.setText("9:30 PM");
+        //Set dialog title to "Edit habit"
+        dialogTitle.setText("Edit habit");
 
+        //Set habit title
+        habitEditText.setText(currentItem.habitTitle);
+
+        //Set days
+        CheckBox[] checkBoxes = {sundayCheckbox, mondayCheckbox, tuesdayCheckbox, wednesdayCheckBox, thursdayCheckbox, fridayCheckbox, saturdayCheckbox};
+        for(int i=0; i<7; i++){
+            if(currentItem.daysToRepeat[i] == true){
+                checkBoxes[i].setChecked(true);
+            }
+        }
+
+        //Set time
+        repeatHour = currentItem.hourToRepeat;
+        repeatMinute = currentItem.minuteToRepeat;
+        String hourString;
+        String minuteString;
+        String AMPM;
+
+        if(repeatHour == 0){
+            hourString = "12";
+            AMPM = "AM";
+        } else if(repeatHour >= 13){
+            hourString = "" + (repeatHour - 12);
+            AMPM = "PM";
+        } else {
+            hourString = "" + repeatHour;
+            AMPM = "AM";
+        }
+
+        if(repeatMinute <10) {
+            minuteString = "0" + repeatMinute;
+        } else {
+            minuteString = "" + repeatMinute;
+        }
+
+        timeTextView.setText(hourString + ":" + minuteString + " " + AMPM);
+
+        //Set edit time button listener
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerFragment newTimePickerFragment = new TimePickerFragment();
 
-                newTimePickerFragment.setTargetFragment(CreateHabitFragment.this, TIME_PICKER_REQUEST_CODE);
+                newTimePickerFragment.setTargetFragment(EditHabitFragment.this, TIME_PICKER_REQUEST_CODE);
                 newTimePickerFragment.show(getFragmentManager(), "timeFragment");
             }
         });
@@ -124,13 +169,15 @@ public class CreateHabitFragment extends DialogFragment {
                 checked[5] = fridayCheckbox.isChecked();
                 checked[6] = saturdayCheckbox.isChecked();
 
-                //Create new instance of habit item
+                //Update current item
                 HabitItem newHabitItem = new HabitItem(habitTitle, checked, repeatHour, repeatMinute);
 
-                //Add new item to list
-                habitList.add(newHabitItem);
+                habitList.get(position).habitTitle = habitTitle;
+                habitList.get(position).daysToRepeat = checked;
+                habitList.get(position).hourToRepeat = repeatHour;
+                habitList.get(position).minuteToRepeat = repeatMinute;
 
-                Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), habitTitle + " has been edited!", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity().getIntent());
                 dismiss();
