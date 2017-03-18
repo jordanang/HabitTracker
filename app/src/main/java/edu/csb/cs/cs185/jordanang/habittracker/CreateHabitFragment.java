@@ -64,7 +64,11 @@ public class CreateHabitFragment extends DialogFragment {
                     AMPM = "AM";
                 }
 
-                minuteString = "" + repeatMinute;
+                if(repeatMinute <10) {
+                    minuteString = "0" + repeatMinute;
+                } else {
+                    minuteString = "" + repeatMinute;
+                }
 
                 timeTextView.setText(hourString + ":" + minuteString + " " + AMPM);
             }
