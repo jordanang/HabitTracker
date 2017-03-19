@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Set up update todays habit button
+        Button updateTodaysHabitButton = (Button) findViewById(R.id.updateTodaysHabitButton);
+
+        //Set up listener for update today's button
+        updateTodaysHabitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(habitList.size() == 0){
+                    Toast.makeText(getApplicationContext(), "There are no habit items created", Toast.LENGTH_SHORT).show();
+                } else {
+                    UpdateHabitsFragment newDialogFragment = new UpdateHabitsFragment();
+                    newDialogFragment.show(getSupportFragmentManager(), "updateDialog");
+                }
+            }
+        });
+
+
         //Set up list and connect adapter
         ListView listView = (ListView) findViewById(R.id.listView);
         customAdapter = new CustomAdapter(getApplicationContext(), habitList);
@@ -67,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*------------------Used to add a button to menu (Old button removed)-----------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -95,4 +112,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    */
 }
