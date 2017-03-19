@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
@@ -48,6 +50,7 @@ public class HabitOverview extends AppCompatActivity {
         TextView best_tv = (TextView) findViewById(R.id.bestStreak_textview);
         TextView currentStreak_tv = (TextView) findViewById(R.id.currentStreak_textview);
         GraphView graph = (GraphView) findViewById(R.id.graph);
+        MaterialCalendarView calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
         FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
 
         //------------Set-up views with proper information from habit item-----------
@@ -123,6 +126,15 @@ public class HabitOverview extends AppCompatActivity {
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(10);
         graph.addSeries(series);
+
+        //Set calendar
+        calendarView.setClickable(false);
+
+        int currentDay = 21;
+        int currentMonth = 2;
+        int streakBegin = currentDay - currentItem.currentStreak;
+
+        calendarView.selectRange(CalendarDay.from(2017,currentMonth, streakBegin), CalendarDay.from(2017, currentMonth, currentDay));
 
         //----------------------------------------------------------------------------
 

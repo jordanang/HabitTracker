@@ -44,6 +44,20 @@ public class HabitItem {
         completedHabitToday = false;
     }
 
+    void addCount(){
+        if(completedHabitToday == false){
+            currentStreak++;
+            total++;
+            if(currentStreak > bestStreak){
+                bestStreak = currentStreak;
+            }
+
+            if(monthPercentage < 97){
+                monthPercentage = monthPercentage + 3;
+            }
+        }
+    }
+
     boolean someDayChosen(){
         boolean someDayChosen = false;
         for(int i=0; i<7; i++){
