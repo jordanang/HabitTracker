@@ -1,29 +1,53 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
-public class DeleteFragment extends AppCompatActivity {
+import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
+
+public class DeleteFragment extends DialogFragment {
+
+    int position;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_fragment);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.content_delete_fragment, container, false);
+
+        Button yesButton = (Button) v.findViewById(R.id.yesButton);
+        Button noButton = (Button) v.findViewById(R.id.noButton);
+
+        position = getArguments().getInt("POSITION");
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                habitList.remove(position);
+                Intent intent = new Intent(getActivity().getIntent());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+                getActivity().finish();
+            }
+        });
+
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+        return v;
+    }
 }

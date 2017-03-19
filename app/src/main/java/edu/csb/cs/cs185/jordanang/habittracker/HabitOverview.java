@@ -141,11 +141,11 @@ public class HabitOverview extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.delete) {
-            habitList.remove(position);
-            Intent intent = new Intent(HabitOverview.this, MainActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
-            finish();
+            DeleteFragment deleteFragment = new DeleteFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("POSITION", position);
+            deleteFragment.setArguments(bundle);
+            deleteFragment.show(getSupportFragmentManager(), "deleteDialog");
         } else if (id == R.id.editButton){
             Bundle bundle = new Bundle();
             bundle.putInt("POSITION", position);
