@@ -1,4 +1,4 @@
-package edu.csb.cs.cs185.jordanang.habittracker.Intro;
+package edu.csb.cs.cs185.jordanang.habittracker;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,27 +8,32 @@ import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
-import edu.csb.cs.cs185.jordanang.habittracker.MainActivity;
-import edu.csb.cs.cs185.jordanang.habittracker.R;
-
 /**
  * Created by Jordan Ang on 3/17/2017.
  */
 
 public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
 
+    static boolean firstTimeOpening = true;
+
     @Override
     public void init(@Nullable Bundle savedInstanceState) {
         super.init(savedInstanceState);
 
+        getSupportActionBar().hide();
+
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
-        addSlide(AppIntroFragment.newInstance("Title", "This is where the description would go if I had one", R.drawable.pencil, Color.parseColor("#ffa726")));
-        addSlide(AppIntroFragment.newInstance("Title", "This is where the description would go if I had one", R.drawable.pencil, Color.parseColor("#3F51B5")));
+        addSlide(AppIntroFragment.newInstance("Create a habit", "Think of a habit you want to build! It can be something as small as " +
+                "walking a pet or as life-changing as going vegan.", R.drawable.intro_plus, Color.parseColor("#686868")));
+        addSlide(AppIntroFragment.newInstance("Update your habit", "Be sure to update your progression! You'll be reminded to " +
+                "log whether or not you've been keeping up with the habit.", R.drawable.intro_check, Color.parseColor("#686868")));
+        addSlide(AppIntroFragment.newInstance("See your accomplishment", "Look back at what you've achieved! You'll be able to " +
+                "to see all the work you put in and how the habit is building.", R.drawable.graph, Color.parseColor("#686868")));
         // OPTIONAL METHODS
         // Override bar/separator color.
-        setBarColor(Color.parseColor("#3F51B5"));
-        setSeparatorColor(Color.parseColor("#2196F3"));
+        setBarColor(Color.parseColor("#00bcd4"));
+        setSeparatorColor(Color.parseColor("#ffffff"));
 
         // Hide Skip/Done button.
         showSkipButton(false);
@@ -39,7 +44,6 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
         setVibrate(false);
         setVibrateIntensity(30);
 
-        setFlowAnimation();
     }
 
         @Override
@@ -53,6 +57,7 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
             super.onDonePressed(currentFragment);
             Intent intent = new Intent(this, MainActivity.class);
             finish();
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             startActivity(intent);
         }
 

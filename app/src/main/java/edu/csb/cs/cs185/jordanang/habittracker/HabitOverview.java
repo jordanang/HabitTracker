@@ -97,19 +97,20 @@ public class HabitOverview extends AppCompatActivity {
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(7);
-        graph.getViewport().setMinX(-8);
-        graph.getViewport().setMaxX(0);
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("# weeks ago");
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(8);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Week #");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Times completed");
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(-8, 1),
-                new DataPoint(-7, 5),
-                new DataPoint(-6, 3),
-                new DataPoint(-5, 4),
-                new DataPoint(-4, 1),
-                new DataPoint(-3, 5),
-                new DataPoint(-2, 3),
-                new DataPoint(-1, 4),
-                new DataPoint(0, 7)
+                new DataPoint(0, 0),
+                new DataPoint(1, 1),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 4),
+                new DataPoint(5, 1),
+                new DataPoint(6, 5),
+                new DataPoint(7, 4),
+                new DataPoint(8, 7),
         });
         series.setColor(Color.parseColor("#00bcd4"));
         series.setDrawDataPoints(true);

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import static edu.csb.cs.cs185.jordanang.habittracker.AppIntro.firstTimeOpening;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -18,11 +20,19 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                startActivity(intent);
+                if(firstTimeOpening == true){
+                    firstTimeOpening = false;
+                    Intent intent = new Intent(SplashScreen.this, AppIntro.class);
+                    finish();
+                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    finish();
+                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    startActivity(intent);
+                }
             }
         }, 2000);
     }

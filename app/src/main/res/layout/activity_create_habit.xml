@@ -100,28 +100,28 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/timeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00 PM"
-            android:textSize="18dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/editButton"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toEndOf="@+id/timeTextView"
+            android:layout_toRightOf="@+id/timeTextView"
             android:layout_marginLeft="4dp"
             android:background="@drawable/pencil" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
