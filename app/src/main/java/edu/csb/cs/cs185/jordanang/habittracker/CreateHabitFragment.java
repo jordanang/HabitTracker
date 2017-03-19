@@ -30,7 +30,7 @@ public class CreateHabitFragment extends DialogFragment {
     TextView timeTextView;
     Button editButton;
     Button discardButton;
-    Button saveButton;
+    Button createButton;
 
     int repeatHour;
     int repeatMinute;
@@ -78,7 +78,7 @@ public class CreateHabitFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_create_habit, container, false);
+        View v = inflater.inflate(R.layout.fragment_create_habit, container, false);
 
         habitEditText = (EditText) v.findViewById(R.id.habitEditText);
         sundayCheckbox = (CheckBox) v.findViewById(R.id.sundayCheckbox);
@@ -91,7 +91,7 @@ public class CreateHabitFragment extends DialogFragment {
         timeTextView = (TextView) v.findViewById(R.id.timeTextView);
         editButton = (Button) v.findViewById(R.id.editButton);
         discardButton = (Button) v.findViewById(R.id.discardButton);
-        saveButton = (Button) v.findViewById(R.id.saveButton);
+        createButton = (Button) v.findViewById(R.id.createButton);
 
         repeatHour = 9;
         repeatMinute = 30;
@@ -119,7 +119,7 @@ public class CreateHabitFragment extends DialogFragment {
 
 
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

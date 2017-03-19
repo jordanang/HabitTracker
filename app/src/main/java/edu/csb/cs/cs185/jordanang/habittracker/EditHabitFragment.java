@@ -85,7 +85,7 @@ public class EditHabitFragment extends DialogFragment {
         position = getArguments().getInt("POSITION");
         final HabitItem currentItem = habitList.get(position);
 
-        View v = inflater.inflate(R.layout.activity_create_habit, container, false);
+        View v = inflater.inflate(R.layout.fragment_create_habit, container, false);
 
         dialogTitle = (TextView) v.findViewById(R.id.dialogTitle);
         habitEditText = (EditText) v.findViewById(R.id.habitEditText);
@@ -99,10 +99,13 @@ public class EditHabitFragment extends DialogFragment {
         timeTextView = (TextView) v.findViewById(R.id.timeTextView);
         editButton = (Button) v.findViewById(R.id.editButton);
         discardButton = (Button) v.findViewById(R.id.discardButton);
-        saveButton = (Button) v.findViewById(R.id.saveButton);
+        saveButton = (Button) v.findViewById(R.id.createButton);
 
         //Set dialog title to "Edit habit"
         dialogTitle.setText("Edit habit");
+
+        //Set button from create to edit
+        saveButton.setText("Edit");
 
         //Set habit title
         habitEditText.setText(currentItem.habitTitle);

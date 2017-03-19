@@ -27,7 +27,7 @@ public class UpdateHabitsFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_update_habits_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_update_habits, container, false);
 
         list = (ListView) v.findViewById(R.id.updateListView);
         submitButton = (Button) v.findViewById(R.id.submitButton);

@@ -26,7 +26,7 @@ public class DeleteFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.content_delete_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_delete, container, false);
 
         Button yesButton = (Button) v.findViewById(R.id.yesButton);
         Button noButton = (Button) v.findViewById(R.id.noButton);

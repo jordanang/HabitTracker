@@ -30,7 +30,7 @@ public class TimePickerFragment extends DialogFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.time_picker, container, false);
+        View v = inflater.inflate(R.layout.fragment_time_picker, container, false);
 
         int initialHour = getArguments().getInt("INITIAL_HOUR");
         int initialMinute = getArguments().getInt("INITIAL_MINUTE");
