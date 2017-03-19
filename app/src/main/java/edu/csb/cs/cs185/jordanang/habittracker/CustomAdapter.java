@@ -38,7 +38,6 @@ public class CustomAdapter extends ArrayAdapter<HabitItem> {
         TextView bestTextView = (TextView) convertView.findViewById(R.id.bestStreak_textview);
         TextView currentTextView = (TextView) convertView.findViewById(R.id.currentStreak_textview);
         TextView totalTextView = (TextView) convertView.findViewById(R.id.total_textview);
-        TextView monthTextView = (TextView) convertView.findViewById(R.id.monthPercentage_textview);
 
         if(item.someDayChosen() == true){
             repeatIndicatorThemed.setVisibility(View.VISIBLE);
@@ -60,11 +59,6 @@ public class CustomAdapter extends ArrayAdapter<HabitItem> {
         //Setup total
         String total_string = "" + item.total;
         totalTextView.setText(total_string);
-
-        //Setup month percentage
-        int currentMonthPercentage = item.getThisMonthsPercentage();
-        String currentMonthPercentage_string = "" + currentMonthPercentage + "%";
-        monthTextView.setText(currentMonthPercentage_string);
 
         return convertView;
     }

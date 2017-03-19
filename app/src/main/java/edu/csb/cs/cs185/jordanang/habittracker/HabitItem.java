@@ -39,7 +39,7 @@ public class HabitItem {
         currentStreak = rand.nextInt(14) + 1;
         bestStreak = 14;
         total = rand.nextInt(30) + 20;
-        monthPercentage = rand.nextInt(100) + 1;
+        monthPercentage = (currentStreak*100)/30 ;
 
         completedHabitToday = false;
     }
@@ -54,6 +54,8 @@ public class HabitItem {
 
             if(monthPercentage < 97){
                 monthPercentage = monthPercentage + 3;
+            } else {
+                monthPercentage = 100;
             }
         }
     }
