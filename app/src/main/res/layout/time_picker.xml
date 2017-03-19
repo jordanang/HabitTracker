@@ -27,6 +27,6 @@ android:padding="10dp"
         android:id="@+id/submitTimeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="Submit"/>
 </LinearLayout>

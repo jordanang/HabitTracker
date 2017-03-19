@@ -56,9 +56,9 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
         public void onDonePressed(Fragment currentFragment) {
             super.onDonePressed(currentFragment);
             Intent intent = new Intent(this, MainActivity.class);
-            finish();
-            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+            finish();
         }
 
         @Override

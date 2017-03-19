@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
 public class DeleteFragment extends DialogFragment {
 
     int position;
+    String title;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class DeleteFragment extends DialogFragment {
 
         position = getArguments().getInt("POSITION");
 
+        title = habitList.get(position).habitTitle;
+
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +42,7 @@ public class DeleteFragment extends DialogFragment {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+                Toast.makeText(getContext(), title + " has been deleted", Toast.LENGTH_LONG);
                 getActivity().finish();
             }
         });

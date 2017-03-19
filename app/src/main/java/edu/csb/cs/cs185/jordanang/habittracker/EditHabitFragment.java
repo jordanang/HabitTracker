@@ -186,7 +186,7 @@ public class EditHabitFragment extends DialogFragment {
                 habitList.get(position).hourToRepeat = repeatHour;
                 habitList.get(position).minuteToRepeat = repeatMinute;
 
-                Toast.makeText(getContext(), habitTitle + " has been edited!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), habitTitle + " has been edited!", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getActivity().getIntent());
                 dismiss();

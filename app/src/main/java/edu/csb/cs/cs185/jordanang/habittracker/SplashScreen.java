@@ -23,15 +23,15 @@ public class SplashScreen extends AppCompatActivity {
                 if(firstTimeOpening == true){
                     firstTimeOpening = false;
                     Intent intent = new Intent(SplashScreen.this, AppIntro.class);
-                    finish();
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    finish();
                 } else {
                     Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    finish();
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    finish();
                 }
             }
         }, 2000);

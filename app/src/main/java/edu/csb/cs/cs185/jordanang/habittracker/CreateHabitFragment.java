@@ -149,7 +149,7 @@ public class CreateHabitFragment extends DialogFragment {
                     //Add new item to list
                     habitList.add(newHabitItem);
 
-                    Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(getActivity().getIntent());
                     dismiss();
