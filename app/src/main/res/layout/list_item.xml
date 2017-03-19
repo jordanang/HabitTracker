@@ -46,12 +46,14 @@
         android:layout_gravity="end|center_vertical"
         android:gravity="center_vertical|end"
         android:layout_marginRight="10dp"
-        android:layout_weight="0.65">
+        android:layout_weight="0.65"
+        android:weightSum="4">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -77,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -103,6 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -127,13 +131,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/monthPercentage_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00%"
+                android:text="100%"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 

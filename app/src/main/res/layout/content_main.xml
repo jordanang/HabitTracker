@@ -7,22 +7,57 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.csb.cs.cs185.jordanang.habittracker.MainActivity"
     android:orientation="vertical"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_weight="0.2"
-        android:fontFamily="cursive"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text='"It takes 21 consecutive days to build a habit. Can you do it?"'
-        android:textSize="24sp" />
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_weight="0.8"
+    <android.support.v7.widget.CardView
+        android:id="@+id/quoteCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:cardElevation="5dp"
+        app:contentPadding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center_horizontal"
+                android:text='Can you build a habit?'
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:singleLine="true"
+                android:text='"It only takes 21 consecutive days."'
+                android:textSize="22sp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/listCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        app:cardElevation="5dp">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -35,7 +35,7 @@ public class DeleteFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 habitList.remove(position);
-                Intent intent = new Intent(getActivity().getIntent());
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 getActivity().finish();

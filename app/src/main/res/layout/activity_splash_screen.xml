@@ -7,12 +7,24 @@
     android:gravity="center"
     android:background="@color/colorPrimary"
     android:theme="@android:style/Theme.NoTitleBar"
+    android:orientation="vertical"
     tools:context="edu.csb.cs.cs185.jordanang.habittracker.SplashScreen">
 
     <ImageView
-        android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:id="@+id/imageView"
+        android:layout_width="255dp"
+        android:layout_height="240dp"
         android:background="@drawable/icon"
-        android:scaleType="centerInside"/>
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:gravity="center_horizontal"
+        android:text="Habit Tracker"
+        android:textColor="@android:color/white"
+        android:textSize="50sp" />
 
 </LinearLayout>

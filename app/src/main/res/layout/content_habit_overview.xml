@@ -13,7 +13,7 @@
         android:layout_marginBottom="5dp"
         android:foregroundGravity="center_horizontal"
         android:visibility="visible"
-        app:cardElevation="1dp"
+        app:cardElevation="5dp"
         app:contentPadding="15dp">
 
         <LinearLayout
@@ -69,8 +69,8 @@
                     android:id="@+id/timeToRepeat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
                     android:layout_alignBottom="@+id/alarmIcon"
+                    android:layout_marginRight="20dp"
                     android:layout_toEndOf="@+id/alarmIcon"
                     android:layout_toRightOf="@+id/alarmIcon"
                     android:text="8:00 AM" />
@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        app:cardElevation="1dp"
+        app:cardElevation="5dp"
         app:contentPadding="15dp">
 
         <LinearLayout
@@ -212,23 +212,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        app:cardElevation="1dp"
+        app:cardElevation="5dp"
         app:contentPadding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="Weekly habit progression"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Weekly habit progression" />
 
             <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph"
                 android:layout_width="match_parent"
-                android:layout_height="200dip"
-                android:id="@+id/graph" />
+                android:layout_height="200dip" />
 
         </LinearLayout>
 
@@ -240,29 +241,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        app:cardElevation="1dp"
+        app:cardElevation="5dp"
         app:contentPadding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="History"/>
+                android:text="History" />
 
-            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mcv_showOtherDates="all"
-                app:mcv_selectionColor="#00bcd4"
-                />
-
-
+                android:clickable="false"
+                app:mcv_selectionColor="#00bcd4" />
 
 
         </LinearLayout>

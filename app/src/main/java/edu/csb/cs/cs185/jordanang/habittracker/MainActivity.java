@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CreateHabitFragment newDialogFragment = new CreateHabitFragment();
-                newDialogFragment.show(getSupportFragmentManager(), "dialog");
+                if(habitList.size() < 6) {
+                    CreateHabitFragment newDialogFragment = new CreateHabitFragment();
+                    newDialogFragment.show(getSupportFragmentManager(), "dialog");
+                } else {
+                    Toast.makeText(getApplicationContext(), "You can only have 6 habits!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

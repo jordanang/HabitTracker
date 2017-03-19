@@ -6,5 +6,5 @@
         android:id="@+id/updateMenuSelection"
         android:orderInCategory="100"
         android:title="Update today's habits"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 </menu>
