@@ -69,11 +69,14 @@
                     android:id="@+id/timeToRepeat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
                     android:layout_alignBottom="@+id/alarmIcon"
                     android:layout_toEndOf="@+id/alarmIcon"
                     android:layout_toRightOf="@+id/alarmIcon"
                     android:text="8:00 AM" />
+
             </RelativeLayout>
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
@@ -97,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|top"
                 android:layout_marginBottom="10dp"
-                android:text="Overview"/>
+                android:text="Overview" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,8 +111,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
                     android:layout_marginRight="10dp"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <TextView
@@ -129,8 +132,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
                     android:layout_marginRight="10dp"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <TextView
@@ -151,8 +154,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
                     android:layout_marginRight="10dp"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <TextView

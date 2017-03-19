@@ -5,9 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
 public class HabitOverview extends AppCompatActivity {
+    int position;
 
     @Override
     public void onBackPressed() {
@@ -37,7 +39,7 @@ public class HabitOverview extends AppCompatActivity {
         setContentView(R.layout.activity_habit_overview);
 
         //Get item clicked
-        final int position = getIntent().getExtras().getInt("POSITION");
+        position = getIntent().getExtras().getInt("POSITION");
         HabitItem currentItem = habitList.get(position);
 
         //Define views
@@ -51,21 +53,8 @@ public class HabitOverview extends AppCompatActivity {
         TextView currentStreak_tv = (TextView) findViewById(R.id.currentStreak_textview);
         GraphView graph = (GraphView) findViewById(R.id.graph);
         MaterialCalendarView calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
-        FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
 
         //------------Set-up views with proper information from habit item-----------
-
-        //Setup edit floating action bottom
-        editFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("POSITION", position);
-                EditHabitFragment newDialogFragment = new EditHabitFragment();
-                newDialogFragment.setArguments(bundle);
-                newDialogFragment.show(getSupportFragmentManager(), "dialog");
-            }
-        });
 
         //Setup habit question
         String habitTitle = currentItem.habitTitle;
@@ -74,7 +63,7 @@ public class HabitOverview extends AppCompatActivity {
         habitQuestion_tv.setText(question);
 
         //Setup days to repeat
-        if(currentItem.someDayChosen() == false){
+        if (currentItem.someDayChosen() == false) {
             daysToRepeat_tv.setText("No days to remind chosen");
         } else {
             daysToRepeat_tv.setText(currentItem.createRepeatDaysString());
@@ -111,7 +100,7 @@ public class HabitOverview extends AppCompatActivity {
         graph.getViewport().setMinX(-8);
         graph.getViewport().setMaxX(0);
         graph.getGridLabelRenderer().setHorizontalAxisTitle("# weeks ago");
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(-8, 1),
                 new DataPoint(-7, 5),
                 new DataPoint(-6, 3),
@@ -134,9 +123,37 @@ public class HabitOverview extends AppCompatActivity {
         int currentMonth = 2;
         int streakBegin = currentDay - currentItem.currentStreak;
 
-        calendarView.selectRange(CalendarDay.from(2017,currentMonth, streakBegin), CalendarDay.from(2017, currentMonth, currentDay));
+        calendarView.selectRange(CalendarDay.from(2017, currentMonth, streakBegin), CalendarDay.from(2017, currentMonth, currentDay));
 
         //----------------------------------------------------------------------------
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.habit_over_view_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.delete) {
+            habitList.remove(position);
+            Intent intent = new Intent(HabitOverview.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+            finish();
+        } else if (id == R.id.editButton){
+            Bundle bundle = new Bundle();
+            bundle.putInt("POSITION", position);
+            EditHabitFragment newDialogFragment = new EditHabitFragment();
+            newDialogFragment.setArguments(bundle);
+            newDialogFragment.show(getSupportFragmentManager(), "dialog");
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -6,10 +6,23 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.csb.cs.cs185.jordanang.habittracker.MainActivity"
+    android:orientation="vertical"
     tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_weight="0.2"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text='"It takes 21 consecutive days to build a habit. Can you do it?"'
+        android:textSize="24sp" />
 
     <ListView
         android:id="@+id/listView"
+        android:layout_weight="0.8"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -95,13 +95,16 @@ public class CreateHabitFragment extends DialogFragment {
 
         repeatHour = 9;
         repeatMinute = 30;
-        timeTextView.setText("9:30 PM");
+        timeTextView.setText("9:30 AM");
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerFragment newTimePickerFragment = new TimePickerFragment();
-
+                Bundle bundle = new Bundle();
+                bundle.putInt("INITIAL_HOUR", repeatHour);
+                bundle.putInt("INITIAL_MINUTE", repeatMinute);
+                newTimePickerFragment.setArguments(bundle);
                 newTimePickerFragment.setTargetFragment(CreateHabitFragment.this, TIME_PICKER_REQUEST_CODE);
                 newTimePickerFragment.show(getFragmentManager(), "timeFragment");
             }

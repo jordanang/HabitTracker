@@ -146,7 +146,10 @@ public class EditHabitFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 TimePickerFragment newTimePickerFragment = new TimePickerFragment();
-
+                Bundle bundle = new Bundle();
+                bundle.putInt("INITIAL_HOUR", repeatHour);
+                bundle.putInt("INITIAL_MINUTE", repeatMinute);
+                newTimePickerFragment.setArguments(bundle);
                 newTimePickerFragment.setTargetFragment(EditHabitFragment.this, TIME_PICKER_REQUEST_CODE);
                 newTimePickerFragment.show(getFragmentManager(), "timeFragment");
             }

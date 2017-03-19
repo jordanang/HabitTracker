@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="edu.csb.cs.cs185.jordanang.habittracker.MainActivity">
+    <item
+        android:id="@+id/editButton"
+        android:orderInCategory="1"
+        android:title="edit"
+        android:icon="@drawable/pencil_white"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/delete"
+        android:orderInCategory="2"
+        android:title="delete"
+        android:icon="@drawable/recycle_white"
+        app:showAsAction="always" />
+</menu>
