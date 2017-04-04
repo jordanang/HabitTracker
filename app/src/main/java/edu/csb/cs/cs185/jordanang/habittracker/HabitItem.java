@@ -44,10 +44,10 @@ public class HabitItem {
         completedHabitToday = false;
     }
 
-    void addCount(){
-        if(completedHabitToday == false){
+    void complete(){
             currentStreak++;
             total++;
+
             if(currentStreak > bestStreak){
                 bestStreak = currentStreak;
             }
@@ -57,7 +57,30 @@ public class HabitItem {
             } else {
                 monthPercentage = 100;
             }
-        }
+
+            completedHabitToday = true;
+    }
+
+    void uncomplete(){
+            if (currentStreak > 0){
+                currentStreak--;
+            }
+
+            if(total > 0){
+                total--;
+            }
+
+            if(currentStreak > bestStreak){
+                bestStreak = currentStreak;
+            }
+
+            if(monthPercentage >= 3){
+                monthPercentage = monthPercentage - 3;
+            } else {
+                monthPercentage = 0;
+            }
+
+            completedHabitToday = false;
     }
 
     boolean someDayChosen(){

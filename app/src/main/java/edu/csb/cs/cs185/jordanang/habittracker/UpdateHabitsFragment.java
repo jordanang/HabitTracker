@@ -41,15 +41,17 @@ public class UpdateHabitsFragment extends DialogFragment {
             public void onClick(View view) {
                 for(int i=0; i<habitList.size(); i++) {
                     CheckBox checkBox = (CheckBox) list.getChildAt(i).findViewById(R.id.todaysDone_checkbox);
-                    if(checkBox.isChecked()){
-                        habitList.get(i).addCount();
+                    if(checkBox.isChecked() == true && habitList.get(i).completedHabitToday == false){
+                        habitList.get(i).complete();
+                    } else if (checkBox.isChecked() == false && habitList.get(i).completedHabitToday == true){
+                        habitList.get(i).uncomplete();
                     }
                 }
                 Intent intent = new Intent(getActivity().getIntent());
+                startActivity(intent);
+                getActivity().overridePendingTransition(0,0);
                 dismiss();
                 getActivity().finish();
-                getActivity().overridePendingTransition(0,0);
-                startActivity(intent);
                 Toast.makeText(getContext(), "Today's habits updated", Toast.LENGTH_SHORT).show();
             }
         });

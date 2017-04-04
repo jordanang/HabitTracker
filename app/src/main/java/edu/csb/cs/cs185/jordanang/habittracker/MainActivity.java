@@ -1,12 +1,10 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -67,20 +65,6 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
         customAdapter = new CustomAdapter(getApplicationContext(), habitList);
         listView.setAdapter(customAdapter);
-
-        //Set up listener for list items
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), HabitOverview.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("POSITION", i);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
-                finish();
-            }
-        });
     }
 
     /*------------------Used to add a button to menu (Old button removed)-----------------

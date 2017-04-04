@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,10 +46,11 @@ public class HabitOverview extends AppCompatActivity {
 
         //Get item clicked
         position = getIntent().getExtras().getInt("POSITION");
-        HabitItem currentItem = habitList.get(position);
+        final HabitItem currentItem = habitList.get(position);
 
         //Define views
         TextView habitQuestion_tv = (TextView) findViewById(R.id.habitQuestion);
+        CheckBox completedTodayCheckBox = (CheckBox) findViewById(R.id.completedTodayCheckbox);
         TextView daysToRepeat_tv = (TextView) findViewById(R.id.daysToRepeat);
         TextView timeToRepeat_tv = (TextView) findViewById(R.id.timeToRepeat);
         TextView monthPercentage_tv = (TextView) findViewById(R.id.monthPercentage);
@@ -65,6 +68,32 @@ public class HabitOverview extends AppCompatActivity {
         habitTitle = habitTitle.substring(0, habitTitle.length()).toLowerCase();
         String question = "Did you " + habitTitle + " today?";
         habitQuestion_tv.setText(question);
+
+        //Set initial check and set listener for checkbox
+        completedTodayCheckBox.setChecked(currentItem.completedHabitToday);
+        completedTodayCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(currentItem.completedHabitToday == true){
+                    currentItem.uncomplete();
+
+                    //Refresh activity
+                    Intent intent = getIntent();
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    finish();
+                } else {
+                    currentItem.complete();
+
+                    //Refresh activity
+                    Intent intent = getIntent();
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                    finish();
+                }
+
+            }
+        });
 
         //Setup days to repeat
         if (currentItem.someDayChosen() == false) {

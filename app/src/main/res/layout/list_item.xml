@@ -30,14 +30,15 @@
     <TextView
         android:id="@+id/habitTextView"
         android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:layout_weight="0.25"
         android:maxLines="3"
-        android:text="Habt goes here even if it is relly long that is something that is goign to have to stay"
+        android:gravity="center"
+        android:text="Habt goes here"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
@@ -104,6 +105,31 @@
 
 
         <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/total_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -111,18 +137,17 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/total_textview"
+            <CheckBox
+                android:id="@+id/completedTodayCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textColorLink="@color/colorAccent"
+                android:textIsSelectable="false" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total"
+                android:text="Today"
                 android:textColor="@android:color/white"
                 android:textSize="10sp" />
 
