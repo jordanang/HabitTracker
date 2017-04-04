@@ -39,7 +39,7 @@
         android:maxLines="3"
         android:gravity="center"
         android:text="Habt goes here"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
 
     <LinearLayout
