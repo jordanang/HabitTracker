@@ -38,6 +38,10 @@ public class HabitOverview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_overview);
 
+        //Set toolbar back button and set listener
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         //Get item clicked
         position = getIntent().getExtras().getInt("POSITION");
         HabitItem currentItem = habitList.get(position);
@@ -153,6 +157,11 @@ public class HabitOverview extends AppCompatActivity {
             EditHabitFragment newDialogFragment = new EditHabitFragment();
             newDialogFragment.setArguments(bundle);
             newDialogFragment.show(getSupportFragmentManager(), "dialog");
+        } else if (id == android.R.id.home){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
