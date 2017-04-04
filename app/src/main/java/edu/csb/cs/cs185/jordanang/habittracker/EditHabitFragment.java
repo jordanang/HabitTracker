@@ -1,6 +1,8 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
@@ -28,6 +31,7 @@ public class EditHabitFragment extends DialogFragment {
     CheckBox thursdayCheckbox;
     CheckBox fridayCheckbox;
     CheckBox saturdayCheckbox;
+    TimePicker timePicker;
     TextView timeTextView;
     Button editButton;
     Button discardButton;
@@ -42,41 +46,7 @@ public class EditHabitFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == TIME_PICKER_REQUEST_CODE){
-            if(resultCode == 1) {
-                Toast.makeText(getContext(), "New time set!", Toast.LENGTH_SHORT ).show();
-
-                repeatHour = data.getExtras().getInt("HOUR");
-                repeatMinute = data.getExtras().getInt("MINUTE");
-
-                String hourString;
-                String minuteString;
-                String AMPM;
-
-                if(repeatHour == 0){
-                    hourString = "12";
-                    AMPM = "AM";
-                } else if(repeatHour >= 13){
-                    hourString = "" + (repeatHour - 12);
-                    AMPM = "PM";
-                } else {
-                    hourString = "" + repeatHour;
-                    AMPM = "AM";
-                }
-
-                if(repeatMinute <10) {
-                    minuteString = "0" + repeatMinute;
-                } else {
-                    minuteString = "" + repeatMinute;
-                }
-
-                timeTextView.setText(hourString + ":" + minuteString + " " + AMPM);
-            }
-        }
-    }
-
+    @TargetApi(Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,12 +62,11 @@ public class EditHabitFragment extends DialogFragment {
         sundayCheckbox = (CheckBox) v.findViewById(R.id.sundayCheckbox);
         mondayCheckbox = (CheckBox) v.findViewById(R.id.mondayCheckbox);
         tuesdayCheckbox = (CheckBox) v.findViewById(R.id.tuesdayCheckbox);
-        wednesdayCheckBox = (CheckBox) v.findViewById(R.id.wednesdayCheckBox);
+        wednesdayCheckBox = (CheckBox) v.findViewById(R.id.wednesdayCheckbox);
         thursdayCheckbox = (CheckBox) v.findViewById(R.id.thursdayCheckbox);
         fridayCheckbox = (CheckBox) v.findViewById(R.id.fridayCheckbox);
         saturdayCheckbox = (CheckBox) v.findViewById(R.id.saturdayCheckbox);
-        timeTextView = (TextView) v.findViewById(R.id.timeTextView);
-        editButton = (Button) v.findViewById(R.id.editButton);
+        timePicker = (TimePicker) v.findViewById(R.id.timePicker);
         discardButton = (Button) v.findViewById(R.id.discardButton);
         saveButton = (Button) v.findViewById(R.id.createButton);
 
@@ -121,42 +90,9 @@ public class EditHabitFragment extends DialogFragment {
         //Set time
         repeatHour = currentItem.hourToRepeat;
         repeatMinute = currentItem.minuteToRepeat;
-        String hourString;
-        String minuteString;
-        String AMPM;
 
-        if(repeatHour == 0){
-            hourString = "12";
-            AMPM = "AM";
-        } else if(repeatHour >= 13){
-            hourString = "" + (repeatHour - 12);
-            AMPM = "PM";
-        } else {
-            hourString = "" + repeatHour;
-            AMPM = "AM";
-        }
-
-        if(repeatMinute <10) {
-            minuteString = "0" + repeatMinute;
-        } else {
-            minuteString = "" + repeatMinute;
-        }
-
-        timeTextView.setText(hourString + ":" + minuteString + " " + AMPM);
-
-        //Set edit time button listener
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerFragment newTimePickerFragment = new TimePickerFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("INITIAL_HOUR", repeatHour);
-                bundle.putInt("INITIAL_MINUTE", repeatMinute);
-                newTimePickerFragment.setArguments(bundle);
-                newTimePickerFragment.setTargetFragment(EditHabitFragment.this, TIME_PICKER_REQUEST_CODE);
-                newTimePickerFragment.show(getFragmentManager(), "timeFragment");
-            }
-        });
+        timePicker.setHour(repeatHour);
+        timePicker.setMinute(repeatMinute);
 
         discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +100,6 @@ public class EditHabitFragment extends DialogFragment {
                 dismiss();
             }
         });
-
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,9 +116,10 @@ public class EditHabitFragment extends DialogFragment {
                 checked[5] = fridayCheckbox.isChecked();
                 checked[6] = saturdayCheckbox.isChecked();
 
-                //Update current item
-                HabitItem newHabitItem = new HabitItem(habitTitle, checked, repeatHour, repeatMinute);
+                repeatHour = timePicker.getCurrentHour();
+                repeatMinute = timePicker.getCurrentMinute();
 
+                //Update current item
                 habitList.get(position).habitTitle = habitTitle;
                 habitList.get(position).daysToRepeat = checked;
                 habitList.get(position).hourToRepeat = repeatHour;

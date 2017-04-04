@@ -81,7 +81,10 @@ public class HabitItem {
         if(repeatHour == 0){
             hourString = "12";
             AMPM = "AM";
-        } else if(repeatHour >= 13){
+        } else if(repeatHour == 12) {
+            hourString = "12";
+            AMPM = "PM";
+        } else if(repeatHour > 12){
             hourString = "" + (repeatHour - 12);
             AMPM = "PM";
         } else {
