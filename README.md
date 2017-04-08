@@ -5,4 +5,9 @@ Proposal:
 
 At the beginning of every year, numerous new year's resolutions are set; however, by the middle of January, all traces of the goal seem to have disappeared. Far too often are goals set and forgotten in a few days. My application proposes a solution to keep its users on track to completing their goals and visualize their progression. This application will prompt to reflect on their progress, log their journey, and build a habit.
 
-![alt tag](https://github.com/jordanang/HabitTracker/blob/master/Screenshots_HabitTracker/Screenshot_2017-03-18-22-28-45.png)
+<p align="center">
+  <img src="(https://github.com/jordanang/HabitTracker/blob/master/Screenshots_HabitTracker/Screenshot_2017-03-18-22-28-45.pnge" width="350"/>
+  <img src="(https://github.com/jordanang/HabitTracker/blob/master/Screenshots_HabitTracker/Screenshot_2017-03-18-22-28-45.png" width="350"/>
+</p>
+
+
