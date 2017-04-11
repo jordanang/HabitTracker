@@ -6,7 +6,7 @@ At the beginning of every year, numerous new year's resolutions are set; however
 
 
 ## Screenshots
-![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-22-28-45.png)
+![Alt tag]https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_gf/SplashScreen_only.gif)
 
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_gf/CreateHabit.gif)
 
