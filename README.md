@@ -6,12 +6,12 @@ At the beginning of every year, numerous new year's resolutions are set; however
 
 
 ## Screenshots
-![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-22-28-45.png){width=50%}
+![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-22-28-45.png)
+
+![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_gf/CreateHabit.gif)
 
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-09-29.png)
 
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-11.png)
 
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-25.png)
-
-<a href="#"><img src="(https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-25.png" width="200" height="400"/></a>
