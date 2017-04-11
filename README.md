@@ -15,4 +15,4 @@ At the beginning of every year, numerous new year's resolutions are set; however
 
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-25.png =250x)
 
-<img src="(https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-25.png" width="48">
+<img src="(https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-25.png" width="48"/>
