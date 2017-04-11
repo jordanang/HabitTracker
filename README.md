@@ -8,6 +8,8 @@ At the beginning of every year, numerous new year's resolutions are set; however
 ## Animated walkthrough
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_gf/SplashScreen_only.gif)
 
+![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_gf/AppIntro.gif)
+
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_gf/CreateHabit.gif)
 
 ![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_gf/ScrollList.gif)
