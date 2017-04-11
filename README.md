@@ -7,10 +7,10 @@ At the beginning of every year, numerous new year's resolutions are set; however
 
 
 
-![splashScreen](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-22-28-45.png = 250x)
+![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-22-28-45.png =250x)
 
-![homePage](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-09-29.png = 250x)
+![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-09-29.png =250x)
 
-![overview](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-11.png = 250x)
+![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-11.png =250x)
 
-![overview](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-25.png = 250x)
+![Alt tag](https://github.com/jordanang/HabitTracker/blob/master/HabitTracker_documents/HabitTracker_screenshots/Screenshot_2017-03-18-23-10-25.png =250x)
