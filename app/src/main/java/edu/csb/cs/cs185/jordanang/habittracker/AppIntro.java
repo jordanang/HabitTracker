@@ -1,6 +1,7 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,12 +16,21 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
 
     static boolean firstTimeOpening = true;
+    public static final String PREF_NAME = "AppIntro";
 
     @Override
-    public void init(@Nullable Bundle savedInstanceState) {
-        super.init(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         getSupportActionBar().hide();
+
+        SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, 0);
+        if (sharedPref.contains("initialized")){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+            finish();
+        }
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
@@ -55,6 +65,12 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
         @Override
         public void onDonePressed(Fragment currentFragment) {
             super.onDonePressed(currentFragment);
+            
+            SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, 0);
+            SharedPreferences.Editor ed = sharedPref.edit();
+            ed.putBoolean("initialized", true);
+            ed.commit();
+
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
