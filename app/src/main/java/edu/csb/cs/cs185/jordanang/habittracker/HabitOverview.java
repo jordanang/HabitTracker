@@ -38,6 +38,7 @@ public class HabitOverview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_habit_overview);
 
         //Set toolbar back button and set listener
@@ -84,6 +85,10 @@ public class HabitOverview extends AppCompatActivity {
                     finish();
                 } else {
                     currentItem.complete();
+
+                    SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
+                    sqLiteHelper.addCompletedHabit(currentItem.habitTitle, "10-2-2017");
+                    sqLiteHelper.viewDb();
 
                     //Refresh activity
                     Intent intent = getIntent();

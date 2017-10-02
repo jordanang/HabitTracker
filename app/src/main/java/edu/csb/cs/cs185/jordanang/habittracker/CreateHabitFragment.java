@@ -68,6 +68,8 @@ public class CreateHabitFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+                sqLiteHelper.clearDB();
             }
         });
 
@@ -106,6 +108,12 @@ public class CreateHabitFragment extends DialogFragment {
                     //Add new item to list
                     habitList.add(newHabitItem);
 
+                    //Convert checkedBoxes to string representation
+                    String days = encodeDays(checked);
+
+                    SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+                    sqLiteHelper.addHabit(habitTitle, days, repeatHour, repeatMinute);
+
                     Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(getActivity().getIntent());
@@ -120,4 +128,21 @@ public class CreateHabitFragment extends DialogFragment {
 
         return v;
     }
+
+    public String encodeDays(boolean[] checked) {
+        String days = "";
+
+        char[] daysList = {'u', 'm', 't', 'w', 'r', 'f', 's'};
+
+        for(int i=0; i<checked.length; i++)
+        {
+            if(checked[i]){
+                days += daysList[i] + ",";
+            }
+        }
+
+        return days;
+    }
+
+
 }

@@ -65,7 +65,7 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
         @Override
         public void onDonePressed(Fragment currentFragment) {
             super.onDonePressed(currentFragment);
-            
+
             SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, 0);
             SharedPreferences.Editor ed = sharedPref.edit();
             ed.putBoolean("initialized", true);

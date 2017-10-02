@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Grab habits from database
+        SQLiteHelper  sqLiteHelper = new SQLiteHelper(getApplicationContext());
+        habitList = sqLiteHelper.getHabitList();
 
         //Set up list and connect adapter
         ListView listView = (ListView) findViewById(R.id.listView);
