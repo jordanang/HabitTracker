@@ -1,10 +1,13 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -64,10 +67,28 @@ public class MainActivity extends AppCompatActivity {
         SQLiteHelper  sqLiteHelper = new SQLiteHelper(getApplicationContext());
         habitList = sqLiteHelper.getHabitList();
 
+        for(int i=0; i<habitList.size(); i++){
+            String name = habitList.get(i).habitTitle;
+            Log.d("SQLtoArray", name);
+        }
+
         //Set up list and connect adapter
         ListView listView = (ListView) findViewById(R.id.listView);
         customAdapter = new CustomAdapter(getApplicationContext(), habitList);
         listView.setAdapter(customAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("arr", Integer.toString(position));
+                Intent intent = new Intent(getApplicationContext(), HabitOverview.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("POSITION", position);
+                Log.d("Array", Integer.toString(position));
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     /*------------------Used to add a button to menu (Old button removed)-----------------
