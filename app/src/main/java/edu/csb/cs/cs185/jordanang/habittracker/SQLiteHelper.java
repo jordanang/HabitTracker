@@ -59,18 +59,63 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean checkHabitExists(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * from habit WHERE 'name' = '" + name + "';";
+        Cursor res = db.rawQuery(query, null);
+        db.close();
+        if(res.getCount() == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public void addHabit(String name, String days, int hour, int min) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String quary = "INSERT INTO habit ('name', 'days', 'hour', 'min') VALUES ("
+        String query = "INSERT INTO habit ('name', 'days', 'hour', 'min') VALUES ("
                 + "'" + name + "',"
                 + "'" + days + "',"
                 + "'" + hour + "',"
                 + "'" + min + "');";
-        db.execSQL(quary);
+        db.execSQL(query);
         db.close();
 
-        Log.d("SQLite query", quary);
+        Log.d("SQLite query", query);
         viewDb();
+    }
+
+    public void updateHabit(String currName, String name, String days, int hour, int min) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE habit SET "
+                + "'name' = " + "'" + name + "', "
+                + "'days' = " + "'" + days + "', "
+                + "'hour' = " + "'" + hour + "', "
+                + "'min' = " + "'" + min + "' "
+                + "WHERE name = '" + currName + "'";
+        db.execSQL(query);
+        db.close();
+
+        Log.d("SQlite query", query);
+        viewDb();
+    }
+
+    public String encodeDays(boolean[] checked) {
+        String days = "";
+
+        char[] daysList = {'u', 'm', 't', 'w', 'r', 'f', 's'};
+
+        for(int i=0; i<checked.length; i++)
+        {
+            if(checked[i]){
+                days += daysList[i] + ",";
+            }
+        }
+
+        return days;
     }
 
     public boolean[] decodeDays(String days) {

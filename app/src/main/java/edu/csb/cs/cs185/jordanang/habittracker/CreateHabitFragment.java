@@ -98,10 +98,16 @@ public class CreateHabitFragment extends DialogFragment {
                 checked[5] = fridayCheckbox.isChecked();
                 checked[6] = saturdayCheckbox.isChecked();
 
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+
                 if(habitTitle.equals("")) {
                     Toast.makeText(getContext(), "Please enter a habit title", Toast.LENGTH_SHORT).show();
                 }
-                 else {
+                else if(!sqLiteHelper.checkHabitExists(habitTitle))
+                {
+                    Toast.makeText(getContext(), "Habit already exists with that title. Please choose a different title.", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     //Create new instance of habit item
                     HabitItem newHabitItem = new HabitItem(habitTitle, checked, repeatHour, repeatMinute);
 
@@ -109,9 +115,10 @@ public class CreateHabitFragment extends DialogFragment {
                     habitList.add(newHabitItem);
 
                     //Convert checkedBoxes to string representation
-                    String days = encodeDays(checked);
 
-                    SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+                    String days = sqLiteHelper.encodeDays(checked);
+
+                    sqLiteHelper = new SQLiteHelper(getContext());
                     sqLiteHelper.addHabit(habitTitle, days, repeatHour, repeatMinute);
 
                     Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_LONG).show();
@@ -129,20 +136,7 @@ public class CreateHabitFragment extends DialogFragment {
         return v;
     }
 
-    public String encodeDays(boolean[] checked) {
-        String days = "";
 
-        char[] daysList = {'u', 'm', 't', 'w', 'r', 'f', 's'};
-
-        for(int i=0; i<checked.length; i++)
-        {
-            if(checked[i]){
-                days += daysList[i] + ",";
-            }
-        }
-
-        return days;
-    }
 
 
 }

@@ -105,33 +105,46 @@ public class EditHabitFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 //Get values from widget and store in variables
+                String currTitle = currentItem.habitTitle;
                 String habitTitle = habitEditText.getText().toString();
 
-                boolean[] checked = new boolean[7];
-                checked[0] = sundayCheckbox.isChecked();
-                checked[1] = mondayCheckbox.isChecked();
-                checked[2] = tuesdayCheckbox.isChecked();
-                checked[3] = wednesdayCheckBox.isChecked();
-                checked[4] = thursdayCheckbox.isChecked();
-                checked[5] = fridayCheckbox.isChecked();
-                checked[6] = saturdayCheckbox.isChecked();
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
 
-                repeatHour = timePicker.getCurrentHour();
-                repeatMinute = timePicker.getCurrentMinute();
+                if(!sqLiteHelper.checkHabitExists(habitTitle))
+                {
+                    Toast.makeText(getContext(), "Habit already exists with that title. Please choose a different title.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    boolean[] checked = new boolean[7];
+                    checked[0] = sundayCheckbox.isChecked();
+                    checked[1] = mondayCheckbox.isChecked();
+                    checked[2] = tuesdayCheckbox.isChecked();
+                    checked[3] = wednesdayCheckBox.isChecked();
+                    checked[4] = thursdayCheckbox.isChecked();
+                    checked[5] = fridayCheckbox.isChecked();
+                    checked[6] = saturdayCheckbox.isChecked();
 
-                //Update current item
-                habitList.get(position).habitTitle = habitTitle;
-                habitList.get(position).daysToRepeat = checked;
-                habitList.get(position).hourToRepeat = repeatHour;
-                habitList.get(position).minuteToRepeat = repeatMinute;
+                    repeatHour = timePicker.getCurrentHour();
+                    repeatMinute = timePicker.getCurrentMinute();
 
-                Toast.makeText(getContext(), habitTitle + " has been edited!", Toast.LENGTH_LONG).show();
+                    //Update current item
+                    habitList.get(position).habitTitle = habitTitle;
+                    habitList.get(position).daysToRepeat = checked;
+                    habitList.get(position).hourToRepeat = repeatHour;
+                    habitList.get(position).minuteToRepeat = repeatMinute;
 
-                Intent intent = new Intent(getActivity().getIntent());
-                dismiss();
-                getActivity().finish();
-                getActivity().overridePendingTransition(0,0);
-                startActivity(intent);
+
+                    String days = sqLiteHelper.encodeDays(checked);
+                    sqLiteHelper.updateHabit(currTitle, habitTitle, days, repeatHour, repeatMinute);
+
+                    Toast.makeText(getContext(), habitTitle + " has been edited!", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(getActivity().getIntent());
+                    dismiss();
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(0, 0);
+                    startActivity(intent);
+                }
             }
         });
 
