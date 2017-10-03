@@ -216,6 +216,30 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean checkCompleted(String name, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM habit WHERE name = '" + name + "';";
+        Log.d("SQLite query", query);
+        Cursor res = db.rawQuery(query, null);
+        if(res != null && res.getCount() > 0)
+        {
+            res.moveToFirst();
+            int habit_id = res.getInt(res.getColumnIndex("id"));
+            query = "SELECT * FROM completed_habits WHERE "
+                    + "habit_id = '" + habit_id + "' AND "
+                    + "date = '" + date + "';";
+            Log.d("SQLite query", query);
+            Cursor res2 = db.rawQuery(query, null);
+            if(res2 != null && res2.getCount() > 0)
+            {
+                db.close();
+                return true;
+            }
+        }
+        db.close();
+        return false;
+    }
+
     public void viewDb() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM completed_habits", null);

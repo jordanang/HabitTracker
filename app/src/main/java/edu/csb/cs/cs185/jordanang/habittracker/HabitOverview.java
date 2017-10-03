@@ -73,7 +73,13 @@ public class HabitOverview extends AppCompatActivity {
         habitQuestion_tv.setText(question);
 
         //Set initial check and set listener for checkbox
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+
+        currentItem.completedHabitToday =  sqLiteHelper.checkCompleted(habitTitle, dateFormat.format(date));
         completedTodayCheckBox.setChecked(currentItem.completedHabitToday);
+
         completedTodayCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
