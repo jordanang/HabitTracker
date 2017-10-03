@@ -110,7 +110,7 @@ public class EditHabitFragment extends DialogFragment {
 
                 SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
 
-                if(!sqLiteHelper.checkHabitExists(habitTitle))
+                if(!currTitle.equals(habitTitle) && sqLiteHelper.checkHabitExists(habitTitle))
                 {
                     Toast.makeText(getContext(), "Habit already exists with that title. Please choose a different title.", Toast.LENGTH_SHORT).show();
                 }

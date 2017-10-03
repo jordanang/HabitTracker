@@ -103,7 +103,7 @@ public class CreateHabitFragment extends DialogFragment {
                 if(habitTitle.equals("")) {
                     Toast.makeText(getContext(), "Please enter a habit title", Toast.LENGTH_SHORT).show();
                 }
-                else if(!sqLiteHelper.checkHabitExists(habitTitle))
+                else if(sqLiteHelper.checkHabitExists(habitTitle))
                 {
                     Toast.makeText(getContext(), "Habit already exists with that title. Please choose a different title.", Toast.LENGTH_SHORT).show();
                 }

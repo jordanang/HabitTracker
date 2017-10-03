@@ -38,9 +38,11 @@ public class DeleteFragment extends DialogFragment {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
+                sqLiteHelper.deleteHabit(title);
+
                 habitList.remove(position);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 Toast.makeText(getContext(), title + " has been deleted", Toast.LENGTH_LONG);
                 getActivity().finish();

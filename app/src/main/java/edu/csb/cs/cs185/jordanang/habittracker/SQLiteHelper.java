@@ -59,25 +59,39 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteHabit(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String lowerCaseName = name.toLowerCase();
+        String query = "DELETE FROM habit WHERE name is '" + lowerCaseName + "';";
+        db.execSQL(query);
+        db.close();
+
+        Log.d("SQLite query", query);
+        viewDb();
+    }
+
     public boolean checkHabitExists(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * from habit WHERE 'name' = '" + name + "';";
+        String lowerCaseName = name.toLowerCase();
+        String query = "SELECT * FROM habit WHERE name = '" + lowerCaseName + "';";
         Cursor res = db.rawQuery(query, null);
-        db.close();
         if(res.getCount() == 0)
         {
+            db.close();
             return false;
         }
         else
         {
+            db.close();
             return true;
         }
     }
 
     public void addHabit(String name, String days, int hour, int min) {
         SQLiteDatabase db = this.getWritableDatabase();
+        String lowerCaseName = name.toLowerCase();
         String query = "INSERT INTO habit ('name', 'days', 'hour', 'min') VALUES ("
-                + "'" + name + "',"
+                + "'" + lowerCaseName + "',"
                 + "'" + days + "',"
                 + "'" + hour + "',"
                 + "'" + min + "');";
@@ -90,8 +104,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void updateHabit(String currName, String name, String days, int hour, int min) {
         SQLiteDatabase db = this.getWritableDatabase();
+        String lowerCaseName = name.toLowerCase();
         String query = "UPDATE habit SET "
-                + "'name' = " + "'" + name + "', "
+                + "'name' = " + "'" + lowerCaseName + "', "
                 + "'days' = " + "'" + days + "', "
                 + "'hour' = " + "'" + hour + "', "
                 + "'min' = " + "'" + min + "' "
@@ -173,7 +188,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void addCompletedHabit(String name, String date) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String getHabit_query = "SELECT id FROM habit WHERE name='" + name + "';";
+        String lowerCaseName = name.toLowerCase();
+        String getHabit_query = "SELECT id FROM habit WHERE name='" + lowerCaseName + "';";
         Cursor res = db.rawQuery(getHabit_query, null);
         res.moveToFirst();
         if(res.isAfterLast() == false) {
