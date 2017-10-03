@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,9 +24,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
+import static java.lang.Integer.parseInt;
 
 public class HabitOverview extends AppCompatActivity {
     int position;
@@ -141,14 +145,6 @@ public class HabitOverview extends AppCompatActivity {
         String total_string = "" + currentItem.total;
         total_tv.setText(total_string);
 
-        //Setup month percentage
-        int currentMonthPercentage = currentItem.getThisMonthsPercentage();
-        String currentMonthPercentage_string = "" + currentMonthPercentage + "%";
-        monthPercentage_tv.setText(currentMonthPercentage_string);
-
-        //Setup progress bar
-        progressBar.setProgress(currentMonthPercentage);
-
         //Set up graph
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setXAxisBoundsManual(true);
@@ -175,6 +171,10 @@ public class HabitOverview extends AppCompatActivity {
         graph.addSeries(series);
 
         //Set calendar
+        int completedThisMonth = 0;
+        String[] dateArray = dateFormat.format(date).split("-");
+        int currYear = parseInt(dateArray[0]);
+        int currMonth = parseInt(dateArray[1]);
         calendarView.setClickable(false);
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
         ArrayList<String> completedDates = sqLiteHelper.getCompletedDates(habitTitle);
@@ -183,15 +183,41 @@ public class HabitOverview extends AppCompatActivity {
             try {
                 Date completedDate = simpleDateFormat.parse(d);
                 calendarView.setDateSelected(completedDate, true);
+                int completeYear = Integer.parseInt(dateFormat.format(completedDate).split("-")[0]);
+                int completeMonth = Integer.parseInt(dateFormat.format(completedDate).split("-")[1]);
+                Log.d("Calendar", Integer.toString(completeYear) + "-" + Integer.toString(completeMonth) + "=="
+                        + Integer.toString(currYear) + "-" + Integer.toString(currMonth));
+                if( completeYear == currYear && completeMonth == currMonth){
+                    completedThisMonth++;
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
 
+        //Setup month percentage
+        int numberOfDaysInMonth = numberOfDaysInMonth(currYear, currMonth);
+        int currentMonthPercentage = percentageOfMonthComplete(completedThisMonth, numberOfDaysInMonth);
+        String currentMonthPercentage_string = "" + currentMonthPercentage + "%";
+        monthPercentage_tv.setText(currentMonthPercentage_string);
+
+        //Setup progress bar
+        progressBar.setProgress(currentMonthPercentage);
+
 
 
         //----------------------------------------------------------------------------
 
+    }
+
+    public static int percentageOfMonthComplete(int numberDaysComplete, int numberDaysInMonth)
+    {
+        return (int) ((numberDaysComplete / (double) numberDaysInMonth) * 100);
+    }
+
+    public static int numberOfDaysInMonth(int year, int month) {
+        Calendar monthStart = new GregorianCalendar(year, month, 1);
+        return monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
     @Override

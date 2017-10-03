@@ -1,9 +1,5 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
-import android.annotation.TargetApi;
-import android.icu.util.Calendar;
-import android.os.Build;
-
 import java.util.Random;
 
 /**
@@ -144,14 +140,4 @@ public class HabitItem {
         return days;
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
-    int getThisMonthsPercentage(){
-        //TODO: Setup percentage of month
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH) + 1;
-        int numDaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        return monthPercentage;
-    }
 }
