@@ -217,15 +217,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
 
     public boolean checkCompleted(String name, String date) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM habit WHERE name = '" + name + "';";
-        Log.d("SQLite query", query);
-        Cursor res = db.rawQuery(query, null);
-        if(res != null && res.getCount() > 0)
+        SQLiteDatabase db = this.getWritableDatabase();
+        int habit_id = getHabitId(name);
+        if (habit_id != -1)
         {
-            res.moveToFirst();
-            int habit_id = res.getInt(res.getColumnIndex("id"));
-            query = "SELECT * FROM completed_habits WHERE "
+            String query = "SELECT * FROM completed_habits WHERE "
                     + "habit_id = '" + habit_id + "' AND "
                     + "date = '" + date + "';";
             Log.d("SQLite query", query);
@@ -238,6 +234,57 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         }
         db.close();
         return false;
+    }
+
+    public void deleteCompleted(String name, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int habit_id = getHabitId(name);
+        if (habit_id != -1) {
+            String query = "DELETE FROM completed_habits WHERE "
+                    + "habit_id = '" + habit_id + "' AND "
+                    + "date = '" + date + "';";
+            db.execSQL(query);
+            Log.d("SQLite query", query);
+            db.close();
+        }
+        return;
+    }
+
+    public ArrayList<String> getCompletedDates(String name) {
+        ArrayList<String> listOfDates = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        int habit_id = getHabitId(name);
+        if (habit_id != -1) {
+            String query = "SELECT * FROM completed_habits WHERE "
+                    + "habit_id = '" + habit_id + "';";
+            Log.d("SQLite query", query);
+            Cursor res = db.rawQuery(query, null);
+            if(res != null && res.getCount() > 0) {
+                res.moveToFirst();
+                while (res.isAfterLast() == false) {
+                    listOfDates.add(res.getString(res.getColumnIndex("date")));
+                    Log.d("SQLite dates", res.getString(res.getColumnIndex("date")));
+                    res.moveToNext();
+                }
+            }
+        }
+        db.close();
+        return listOfDates;
+    }
+
+    public int getHabitId(String name) {
+        int habit_id = -1;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM habit WHERE name = '" + name + "';";
+        Log.d("SQLite query", query);
+        Cursor res = db.rawQuery(query, null);
+        if(res != null && res.getCount() > 0)
+        {
+            res.moveToFirst();
+            habit_id = res.getInt(res.getColumnIndex("id"));
+            return habit_id;
+        }
+        return habit_id;
     }
 
     public void viewDb() {

@@ -17,11 +17,12 @@ import android.widget.TextView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
@@ -85,6 +86,13 @@ public class HabitOverview extends AppCompatActivity {
             public void onClick(View view) {
                 if(currentItem.completedHabitToday == true){
                     currentItem.uncomplete();
+
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = new Date();
+
+                    SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
+                    sqLiteHelper.deleteCompleted(currentItem.habitTitle, dateFormat.format(date));
+                    sqLiteHelper.viewDb();
 
                     //Refresh activity
                     Intent intent = getIntent();
@@ -168,12 +176,19 @@ public class HabitOverview extends AppCompatActivity {
 
         //Set calendar
         calendarView.setClickable(false);
+        calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
+        ArrayList<String> completedDates = sqLiteHelper.getCompletedDates(habitTitle);
+        for(String d: completedDates) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date completedDate = simpleDateFormat.parse(d);
+                calendarView.setDateSelected(completedDate, true);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
-        int currentDay = 21;
-        int currentMonth = 2;
-        int streakBegin = currentDay - currentItem.currentStreak;
 
-        calendarView.selectRange(CalendarDay.from(2017, currentMonth, streakBegin), CalendarDay.from(2017, currentMonth, currentDay));
 
         //----------------------------------------------------------------------------
 
