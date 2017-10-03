@@ -28,8 +28,6 @@ public class HabitOverview extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //Intent intent = new Intent(this, MainActivity.class);
-        //startActivity(intent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         finish();
     }
