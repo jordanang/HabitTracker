@@ -62,10 +62,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void deleteHabit(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
         String lowerCaseName = name.toLowerCase();
-        String query = "DELETE FROM habit WHERE name is '" + lowerCaseName + "';";
-        db.execSQL(query);
-        db.close();
+        String query = "SELECT * FROM habit WHERE name = '" + lowerCaseName + "';";
+        Log.d("SQLite query", query);
+        Cursor res = db.rawQuery(query, null);
+        if (res != null && res.getCount() > 0)
+        {
+            res.moveToFirst();
+            int habit_id = res.getInt(res.getColumnIndex("id"));
+            query = "DELETE FROM completed_habits WHERE habit_id is '" + habit_id + "';";
+            Log.d("SQLite query", query);
+            db.execSQL(query);
+        }
 
+        query = "DELETE FROM habit WHERE name is '" + lowerCaseName + "';";
+        db.execSQL(query);
         Log.d("SQLite query", query);
         viewDb();
     }

@@ -20,6 +20,10 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
 public class HabitOverview extends AppCompatActivity {
@@ -84,8 +88,11 @@ public class HabitOverview extends AppCompatActivity {
                 } else {
                     currentItem.complete();
 
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = new Date();
+
                     SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
-                    sqLiteHelper.addCompletedHabit(currentItem.habitTitle, "10-2-2017");
+                    sqLiteHelper.addCompletedHabit(currentItem.habitTitle, dateFormat.format(date));
                     sqLiteHelper.viewDb();
 
                     //Refresh activity
