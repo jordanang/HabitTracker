@@ -334,8 +334,6 @@ public class HabitOverview extends AppCompatActivity {
             newDialogFragment.setArguments(bundle);
             newDialogFragment.show(getSupportFragmentManager(), "dialog");
         } else if (id == android.R.id.home){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
             overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
             finish();
         }

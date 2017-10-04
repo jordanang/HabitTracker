@@ -33,7 +33,7 @@ public class UpdateHabitsFragment extends DialogFragment {
         customAdapter = new CustomAdapter_update(getActivity().getApplicationContext(), habitList);
         list.setAdapter(customAdapter);
 
-        /*submitButton.setOnClickListener(new View.OnClickListener() {
+     /*   submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 for(int i=0; i<habitList.size(); i++) {

@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         //Set up update todays habit button
         Button updateTodaysHabitButton = (Button) findViewById(R.id.updateTodaysHabitButton);
 
-        //Set up listener for update today's button
+        updateTodaysHabitButton.setText("LIST OF HABITS");
+        /*//Set up listener for update today's button
         updateTodaysHabitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     newDialogFragment.show(getSupportFragmentManager(), "updateDialog");
                 }
             }
-        });
+        });*/
 
         //Grab habits from database
         SQLiteHelper  sqLiteHelper = new SQLiteHelper(getApplicationContext());
