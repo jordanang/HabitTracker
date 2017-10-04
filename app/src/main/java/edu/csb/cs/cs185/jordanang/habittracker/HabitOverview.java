@@ -90,8 +90,6 @@ public class HabitOverview extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(currentItem.completedHabitToday == true){
-                    currentItem.uncomplete();
-
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = new Date();
 
@@ -104,8 +102,6 @@ public class HabitOverview extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     finish();
                 } else {
-                    currentItem.complete();
-
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = new Date();
 

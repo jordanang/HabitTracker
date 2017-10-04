@@ -39,57 +39,29 @@ public class CustomAdapter extends ArrayAdapter<HabitItem> {
         TextView bestTextView = (TextView) convertView.findViewById(R.id.bestStreak_textview);
         TextView currentTextView = (TextView) convertView.findViewById(R.id.currentStreak_textview);
         TextView totalTextView = (TextView) convertView.findViewById(R.id.total_textview);
-        //CheckBox completedTodayCheckBox = (CheckBox) convertView.findViewById(R.id.completedTodayCheckbox);
 
-        if(item.someDayChosen() == true){
+        if(item.completedHabitToday == true){
             repeatIndicatorThemed.setVisibility(View.VISIBLE);
+            repeatIndicatorGrey.setVisibility(View.GONE);
         } else {
             repeatIndicatorGrey.setVisibility(View.VISIBLE);
+            repeatIndicatorThemed.setVisibility(View.GONE);
         }
 
         //Setup habit title
         habitTextView.setText(item.habitTitle);
-        /*habitTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), HabitOverview.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("POSITION", itemPosition);
-                Log.d("Array", Integer.toString(itemPosition));
-                intent.putExtras(bundle);
-                getContext().startActivity(intent);
-            }
-        });*/
 
         //Setup current streak
-        String currentStreak_string = "" + item.currentStreak;
+        String currentStreak_string = "" + "0";
         currentTextView.setText(currentStreak_string);
 
         //Setup best streak
-        String bestStreak_string = "" + item.bestStreak;
+        String bestStreak_string = "" + "0";
         bestTextView.setText(bestStreak_string);
 
         //Setup total
-        String total_string = "" + item.total;
+        String total_string = "" + "0";
         totalTextView.setText(total_string);
-
-        //Setup checkbox and set checkbox listener
-        /*if(item.completedHabitToday){
-            completedTodayCheckBox.setChecked(true);
-        }*/
-
-/*        completedTodayCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(item.completedHabitToday == false){
-                    item.complete();
-                    notifyDataSetChanged();
-                } else if(item.completedHabitToday == true){
-                    item.uncomplete();
-                    notifyDataSetChanged();
-                }
-            }
-        });*/
 
         return convertView;
     }

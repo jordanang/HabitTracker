@@ -1,16 +1,13 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import static edu.csb.cs.cs185.jordanang.habittracker.MainActivity.habitList;
 
@@ -36,7 +33,7 @@ public class UpdateHabitsFragment extends DialogFragment {
         customAdapter = new CustomAdapter_update(getActivity().getApplicationContext(), habitList);
         list.setAdapter(customAdapter);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        /*submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 for(int i=0; i<habitList.size(); i++) {
@@ -54,7 +51,7 @@ public class UpdateHabitsFragment extends DialogFragment {
                 getActivity().finish();
                 Toast.makeText(getContext(), "Today's habits updated", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         return v;
     }

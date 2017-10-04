@@ -1,7 +1,5 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
-import java.util.Random;
-
 /**
  * Created by Jordan Ang on 3/12/2017.
  */
@@ -13,16 +11,7 @@ public class HabitItem {
     int hourToRepeat;
     int minuteToRepeat;
 
-    int currentStreak;
-    int bestStreak;
-    int total;
-    int monthPercentage;
-
     boolean completedHabitToday;
-
-    HabitItem(){
-        //Default Constructor
-    }
 
     HabitItem(String title, boolean[] checked, int hour, int minute){
         habitTitle = title;
@@ -30,53 +19,16 @@ public class HabitItem {
         hourToRepeat = hour;
         minuteToRepeat = minute;
 
-        Random rand = new Random();
-
-        currentStreak = rand.nextInt(14) + 1;
-        bestStreak = 14;
-        total = rand.nextInt(30) + 20;
-        monthPercentage = (currentStreak*100)/30 ;
-
         completedHabitToday = false;
     }
 
-    void complete(){
-            currentStreak++;
-            total++;
+    HabitItem(String title, boolean[] checked, int hour, int minute, boolean completed){
+        habitTitle = title;
+        daysToRepeat = checked;
+        hourToRepeat = hour;
+        minuteToRepeat = minute;
 
-            if(currentStreak > bestStreak){
-                bestStreak = currentStreak;
-            }
-
-            if(monthPercentage < 97){
-                monthPercentage = monthPercentage + 3;
-            } else {
-                monthPercentage = 100;
-            }
-
-            completedHabitToday = true;
-    }
-
-    void uncomplete(){
-            if (currentStreak > 0){
-                currentStreak--;
-            }
-
-            if(total > 0){
-                total--;
-            }
-
-            if(currentStreak > bestStreak){
-                bestStreak = currentStreak;
-            }
-
-            if(monthPercentage >= 3){
-                monthPercentage = monthPercentage - 3;
-            } else {
-                monthPercentage = 0;
-            }
-
-            completedHabitToday = false;
+        completedHabitToday = completed;
     }
 
     boolean someDayChosen(){

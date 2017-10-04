@@ -6,8 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by Jordan Ang on 9/30/2017.
@@ -180,7 +182,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
             int min = res.getInt(res.getColumnIndex("min"));
 
-            HabitItem habit = new HabitItem(name, checked, hour, min);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            boolean completedHabitToday = checkCompleted(name, simpleDateFormat.format(new Date()));
+            viewDb();
+            Log.d("SQL", name + " -> " + Boolean.toString(completedHabitToday));
+
+            HabitItem habit = new HabitItem(name, checked, hour, min, completedHabitToday);
 
             habits.add(habit);
 
