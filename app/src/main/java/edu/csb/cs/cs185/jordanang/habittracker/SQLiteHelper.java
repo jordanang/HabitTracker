@@ -76,8 +76,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         query = "DELETE FROM habit WHERE name is '" + lowerCaseName + "';";
         db.execSQL(query);
-        Log.d("SQLite query", query);
-        viewDb();
+
     }
 
     public boolean checkHabitExists(String name) {
@@ -108,8 +107,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(query);
         db.close();
 
-        Log.d("SQLite query", query);
-        viewDb();
+
     }
 
     public void updateHabit(String currName, String name, String days, int hour, int min) {
@@ -124,8 +122,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(query);
         db.close();
 
-        Log.d("SQlite query", query);
-        viewDb();
+
     }
 
     public String encodeDays(boolean[] checked) {
@@ -209,8 +206,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     + "'" + date + "');";
             db.execSQL(addCompleted_query);
 
-            Log.d("SQLite query", addCompleted_query);
-            viewDb();
 
             db.close();
         }

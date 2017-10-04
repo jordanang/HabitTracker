@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -96,7 +97,6 @@ public class HabitOverview extends AppCompatActivity {
 
                     SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
                     sqLiteHelper.deleteCompleted(currentItem.habitTitle, dateFormat.format(date));
-                    sqLiteHelper.viewDb();
 
                     //Refresh activity
                     Intent intent = getIntent();
@@ -111,7 +111,6 @@ public class HabitOverview extends AppCompatActivity {
 
                     SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
                     sqLiteHelper.addCompletedHabit(currentItem.habitTitle, dateFormat.format(date));
-                    sqLiteHelper.viewDb();
 
                     //Refresh activity
                     Intent intent = getIntent();
@@ -133,17 +132,9 @@ public class HabitOverview extends AppCompatActivity {
         //Setup time to repeat
         timeToRepeat_tv.setText(currentItem.createTimeString());
 
-        //Setup current streak
-        String currentStreak_string = "" + currentItem.currentStreak;
-        currentStreak_tv.setText(currentStreak_string);
 
-        //Setup best streak
-        String bestStreak_string = "" + currentItem.bestStreak;
-        best_tv.setText(bestStreak_string);
 
-        //Setup total
-        String total_string = "" + currentItem.total;
-        total_tv.setText(total_string);
+
 
         //Set up graph
         graph.getViewport().setYAxisBoundsManual(true);
@@ -171,22 +162,31 @@ public class HabitOverview extends AppCompatActivity {
         graph.addSeries(series);
 
         //Set calendar
+        int totalComplete = 0;
         int completedThisMonth = 0;
+
         String[] dateArray = dateFormat.format(date).split("-");
         int currYear = parseInt(dateArray[0]);
         int currMonth = parseInt(dateArray[1]);
+
         calendarView.setClickable(false);
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
+
         ArrayList<String> completedDates = sqLiteHelper.getCompletedDates(habitTitle);
+        try {
+            sortDates(completedDates);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         for(String d: completedDates) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
+                totalComplete++;
                 Date completedDate = simpleDateFormat.parse(d);
                 calendarView.setDateSelected(completedDate, true);
                 int completeYear = Integer.parseInt(dateFormat.format(completedDate).split("-")[0]);
                 int completeMonth = Integer.parseInt(dateFormat.format(completedDate).split("-")[1]);
-                Log.d("Calendar", Integer.toString(completeYear) + "-" + Integer.toString(completeMonth) + "=="
-                        + Integer.toString(currYear) + "-" + Integer.toString(currMonth));
                 if( completeYear == currYear && completeMonth == currMonth){
                     completedThisMonth++;
                 }
@@ -204,6 +204,24 @@ public class HabitOverview extends AppCompatActivity {
         //Setup progress bar
         progressBar.setProgress(currentMonthPercentage);
 
+        //Setup total
+        String total_string = "" + totalComplete;
+        total_tv.setText(total_string);
+
+        try {
+            //Setup current streak
+            String currentStreak_string = "" + getCurrStreak(completedDates);
+            currentStreak_tv.setText(currentStreak_string);
+
+            //Setup best streak
+            String bestStreak_string = "" + getBestStreak(completedDates);
+            best_tv.setText(bestStreak_string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
 
 
         //----------------------------------------------------------------------------
@@ -218,6 +236,82 @@ public class HabitOverview extends AppCompatActivity {
     public static int numberOfDaysInMonth(int year, int month) {
         Calendar monthStart = new GregorianCalendar(year, month, 1);
         return monthStart.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    public static void sortDates(ArrayList<String> dates) throws ParseException {
+        for(int i=0; i<dates.size(); i++){
+            for(int j=i; j>0; j--) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date a = simpleDateFormat.parse(dates.get(j));
+                Date b = simpleDateFormat.parse(dates.get(j - 1));
+                if (a.before(b)) {
+                    String temp = dates.get(j);
+                    dates.set(j, dates.get(j-1));
+                    dates.set(j - 1, temp);
+                }
+
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static int getCurrStreak(ArrayList<String> dates) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String todaysDate = simpleDateFormat.format(date);
+        if (dates.contains(todaysDate)) {
+            int currStreak = 1;
+            int numDates = dates.size() - 1;
+            while(numDates > 0) {
+                android.icu.util.Calendar c = android.icu.util.Calendar.getInstance();
+                date = simpleDateFormat.parse(dates.get(numDates));
+                c.setTime(date);
+                c.add(android.icu.util.Calendar.DATE, -1);
+                String prevDay = simpleDateFormat.format(c.getTime());
+                if (prevDay.equals(dates.get(numDates - 1))) {
+                    currStreak++;
+                    Log.d("streak", prevDay);
+                } else {
+                    break;
+                }
+                numDates--;
+            }
+            return currStreak;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static int getBestStreak(ArrayList<String> dates) throws ParseException {
+        int bestStreak = 1;
+        int currStreak = 1;
+
+        if(dates.size() == 0) {
+            bestStreak = 0;
+            return bestStreak;
+        }
+
+        for(int i=0; i<dates.size()-1; i++) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            android.icu.util.Calendar c = android.icu.util.Calendar.getInstance();
+            Date d = simpleDateFormat.parse(dates.get(i));
+            c.setTime(d);
+            c.add(android.icu.util.Calendar.DATE, 1);
+            String nextDay = simpleDateFormat.format(c.getTime());
+            if(dates.get(i+1).equals(nextDay)){
+                currStreak++;
+                if(currStreak > bestStreak) {
+                    bestStreak = currStreak;
+                }
+            } else {
+                currStreak = 1;
+            }
+        }
+
+        return bestStreak;
     }
 
     @Override
