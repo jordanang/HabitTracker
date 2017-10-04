@@ -1,6 +1,5 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -40,11 +39,10 @@ public class DeleteFragment extends DialogFragment {
             public void onClick(View view) {
                 SQLiteHelper sqLiteHelper = new SQLiteHelper(getContext());
                 sqLiteHelper.deleteHabit(title);
-
                 habitList.remove(position);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+
                 getActivity().overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
-                Toast.makeText(getContext(), title + " has been deleted", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), title + " has been deleted", Toast.LENGTH_SHORT);
                 getActivity().finish();
             }
         });

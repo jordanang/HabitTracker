@@ -121,7 +121,7 @@ public class CreateHabitFragment extends DialogFragment {
                     sqLiteHelper = new SQLiteHelper(getContext());
                     sqLiteHelper.addHabit(habitTitle, days, repeatHour, repeatMinute);
 
-                    Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), habitTitle + " has been added as a new habit!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getActivity().getIntent());
                     dismiss();

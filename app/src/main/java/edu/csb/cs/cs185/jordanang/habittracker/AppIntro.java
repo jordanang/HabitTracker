@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
@@ -29,6 +30,7 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+            Toast.makeText(getApplicationContext(), "Opened before", Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -54,6 +56,9 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
         setVibrate(false);
         setVibrateIntensity(30);
 
+
+
+
     }
 
         @Override
@@ -65,6 +70,42 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
         @Override
         public void onDonePressed(Fragment currentFragment) {
             super.onDonePressed(currentFragment);
+
+            //DEMO DATA
+            SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
+            sqLiteHelper.addHabit("Gym", "m,w,f,", 20, 30);
+            sqLiteHelper.addHabit("Study", "m,t,w,r,f,", 10, 30);
+            sqLiteHelper.addHabit("Walk the dog", "t,w,r,", 16, 0);
+
+            //Gym
+            sqLiteHelper.addCompletedHabit("Gym", "2017-09-30");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-09-27");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-09-29");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-10-01");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-10-02");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-10-03");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-10-04");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-10-06");
+            sqLiteHelper.addCompletedHabit("Gym", "2017-10-07");
+
+            sqLiteHelper.addCompletedHabit("Study", "2017-10-02");
+            sqLiteHelper.addCompletedHabit("Study", "2017-09-30");
+            sqLiteHelper.addCompletedHabit("Study", "2017-09-27");
+            sqLiteHelper.addCompletedHabit("Study", "2017-09-29");
+            sqLiteHelper.addCompletedHabit("Study", "2017-10-01");
+            sqLiteHelper.addCompletedHabit("Study", "2017-10-02");
+            sqLiteHelper.addCompletedHabit("Study", "2017-10-03");
+
+
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-10-02");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-09-30");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-09-27");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-09-29");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-10-01");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-10-02");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-10-04");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-10-06");
+            sqLiteHelper.addCompletedHabit("Walk the dog", "2017-10-07");
 
             SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, 0);
             SharedPreferences.Editor ed = sharedPref.edit();

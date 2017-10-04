@@ -52,15 +52,15 @@ public class CustomAdapter extends ArrayAdapter<HabitItem> {
         habitTextView.setText(item.habitTitle);
 
         //Setup current streak
-        String currentStreak_string = "" + "0";
+        String currentStreak_string = "" + item.currStreak;
         currentTextView.setText(currentStreak_string);
 
         //Setup best streak
-        String bestStreak_string = "" + "0";
+        String bestStreak_string = "" + item.bestStreak;
         bestTextView.setText(bestStreak_string);
 
         //Setup total
-        String total_string = "" + "0";
+        String total_string = "" + item.total;
         totalTextView.setText(total_string);
 
         return convertView;

@@ -11,6 +11,10 @@ public class HabitItem {
     int hourToRepeat;
     int minuteToRepeat;
 
+    int currStreak;
+    int bestStreak;
+    int total;
+
     boolean completedHabitToday;
 
     HabitItem(String title, boolean[] checked, int hour, int minute){
@@ -20,15 +24,23 @@ public class HabitItem {
         minuteToRepeat = minute;
 
         completedHabitToday = false;
+
+        currStreak = 0;
+        bestStreak = 0;
+        total = 0;
     }
 
-    HabitItem(String title, boolean[] checked, int hour, int minute, boolean completed){
+    HabitItem(String title, boolean[] checked, int hour, int minute, boolean completed, int curr, int best, int tot) {
         habitTitle = title;
         daysToRepeat = checked;
         hourToRepeat = hour;
         minuteToRepeat = minute;
 
         completedHabitToday = completed;
+
+        currStreak = curr;
+        bestStreak = best;
+        total = tot;
     }
 
     boolean someDayChosen(){

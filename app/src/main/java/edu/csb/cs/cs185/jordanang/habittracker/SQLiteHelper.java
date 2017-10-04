@@ -4,12 +4,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+
+import static edu.csb.cs.cs185.jordanang.habittracker.HabitOverview.getBestStreak;
+import static edu.csb.cs.cs185.jordanang.habittracker.HabitOverview.getCurrStreak;
+import static edu.csb.cs.cs185.jordanang.habittracker.HabitOverview.sortDates;
 
 /**
  * Created by Jordan Ang on 9/30/2017.
@@ -163,8 +170,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return checked;
     }
 
-    public ArrayList<HabitItem> getHabitList()
-    {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ArrayList<HabitItem> getHabitList() throws ParseException {
         ArrayList<HabitItem> habits = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -174,6 +181,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         while(res.isAfterLast() == false)
         {
             String name = res.getString(res.getColumnIndex("name"));
+            if(name.length() >= 2) {
+                name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            }
 
             String days = res.getString(res.getColumnIndex("days"));
             boolean[] checked = decodeDays(days);
@@ -184,12 +194,26 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             boolean completedHabitToday = checkCompleted(name, simpleDateFormat.format(new Date()));
-            viewDb();
-            Log.d("SQL", name + " -> " + Boolean.toString(completedHabitToday));
 
-            HabitItem habit = new HabitItem(name, checked, hour, min, completedHabitToday);
+            ArrayList<String> completedDates = getCompletedDates(name);
+
+            try {
+                sortDates(completedDates);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            int currStreak = getCurrStreak(completedDates);
+
+            int bestStreak = getBestStreak(completedDates);
+
+            int total = completedDates.size();
+
+            HabitItem habit = new HabitItem(name, checked, hour, min, completedHabitToday, currStreak, bestStreak, total);
 
             habits.add(habit);
+
+            completedDates.clear();
 
             res.moveToNext();
         }
@@ -277,7 +301,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public int getHabitId(String name) {
         int habit_id = -1;
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM habit WHERE name = '" + name + "';";
+        String lowerCaseName = name.toLowerCase();
+        String query = "SELECT * FROM habit WHERE name = '" + lowerCaseName + "';";
         Log.d("SQLite query", query);
         Cursor res = db.rawQuery(query, null);
         if(res != null && res.getCount() > 0)

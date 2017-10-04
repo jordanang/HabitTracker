@@ -1,7 +1,9 @@
 package edu.csb.cs.cs185.jordanang.habittracker;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         customAdapter.notifyDataSetChanged();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Grab habits from database
         SQLiteHelper  sqLiteHelper = new SQLiteHelper(getApplicationContext());
-        habitList = sqLiteHelper.getHabitList();
+        try {
+            habitList = sqLiteHelper.getHabitList();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         //Set up list and connect adapter
         ListView listView = (ListView) findViewById(R.id.listView);

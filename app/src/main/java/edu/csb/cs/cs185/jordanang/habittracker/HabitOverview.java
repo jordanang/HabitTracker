@@ -79,11 +79,6 @@ public class HabitOverview extends AppCompatActivity {
         habitQuestion_tv.setText(question);
 
         //Set initial check and set listener for checkbox
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-
-        currentItem.completedHabitToday =  sqLiteHelper.checkCompleted(habitTitle, dateFormat.format(date));
         completedTodayCheckBox.setChecked(currentItem.completedHabitToday);
 
         completedTodayCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -92,26 +87,36 @@ public class HabitOverview extends AppCompatActivity {
                 if(currentItem.completedHabitToday == true){
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = new Date();
-
                     SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
                     sqLiteHelper.deleteCompleted(currentItem.habitTitle, dateFormat.format(date));
+                    sqLiteHelper.viewDb();
+
+                    currentItem.completedHabitToday=false;
+                    currentItem.currStreak--;
+                    currentItem.bestStreak--;
+                    currentItem.total--;
 
                     //Refresh activity
                     Intent intent = getIntent();
                     startActivity(intent);
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
                 } else {
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = new Date();
-
                     SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
                     sqLiteHelper.addCompletedHabit(currentItem.habitTitle, dateFormat.format(date));
+                    sqLiteHelper.viewDb();
+
+                    currentItem.completedHabitToday=true;
+                    currentItem.currStreak++;
+                    currentItem.bestStreak++;
+                    currentItem.total++;
 
                     //Refresh activity
                     Intent intent = getIntent();
                     startActivity(intent);
-                    overridePendingTransition(0,0);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
                 }
 
@@ -127,10 +132,6 @@ public class HabitOverview extends AppCompatActivity {
 
         //Setup time to repeat
         timeToRepeat_tv.setText(currentItem.createTimeString());
-
-
-
-
 
         //Set up graph
         graph.getViewport().setYAxisBoundsManual(true);
@@ -158,9 +159,9 @@ public class HabitOverview extends AppCompatActivity {
         graph.addSeries(series);
 
         //Set calendar
-        int totalComplete = 0;
         int completedThisMonth = 0;
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
         String[] dateArray = dateFormat.format(date).split("-");
         int currYear = parseInt(dateArray[0]);
         int currMonth = parseInt(dateArray[1]);
@@ -168,6 +169,7 @@ public class HabitOverview extends AppCompatActivity {
         calendarView.setClickable(false);
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
 
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext());
         ArrayList<String> completedDates = sqLiteHelper.getCompletedDates(habitTitle);
         try {
             sortDates(completedDates);
@@ -178,7 +180,6 @@ public class HabitOverview extends AppCompatActivity {
         for(String d: completedDates) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                totalComplete++;
                 Date completedDate = simpleDateFormat.parse(d);
                 calendarView.setDateSelected(completedDate, true);
                 int completeYear = Integer.parseInt(dateFormat.format(completedDate).split("-")[0]);
@@ -201,21 +202,16 @@ public class HabitOverview extends AppCompatActivity {
         progressBar.setProgress(currentMonthPercentage);
 
         //Setup total
-        String total_string = "" + totalComplete;
+        String total_string = "" + currentItem.total;
         total_tv.setText(total_string);
 
-        try {
-            //Setup current streak
-            String currentStreak_string = "" + getCurrStreak(completedDates);
-            currentStreak_tv.setText(currentStreak_string);
+        //Setup current streak
+        String currentStreak_string = "" + currentItem.currStreak;
+        currentStreak_tv.setText(currentStreak_string);
 
-            //Setup best streak
-            String bestStreak_string = "" + getBestStreak(completedDates);
-            best_tv.setText(bestStreak_string);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        //Setup best streak
+        String bestStreak_string = "" + currentItem.bestStreak;
+        best_tv.setText(bestStreak_string);
 
 
 
