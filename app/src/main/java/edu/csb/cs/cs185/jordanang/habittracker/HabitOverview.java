@@ -2,7 +2,6 @@ package edu.csb.cs.cs185.jordanang.habittracker;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,9 +15,6 @@ import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.DateFormat;
@@ -67,7 +63,7 @@ public class HabitOverview extends AppCompatActivity {
         TextView total_tv = (TextView) findViewById(R.id.total_textview);
         TextView best_tv = (TextView) findViewById(R.id.bestStreak_textview);
         TextView currentStreak_tv = (TextView) findViewById(R.id.currentStreak_textview);
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        //GraphView graph = (GraphView) findViewById(R.id.graph);
         MaterialCalendarView calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
 
         //------------Set-up views with proper information from habit item-----------
@@ -134,7 +130,7 @@ public class HabitOverview extends AppCompatActivity {
         timeToRepeat_tv.setText(currentItem.createTimeString());
 
         //Set up graph
-        graph.getViewport().setYAxisBoundsManual(true);
+        /*graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(7);
@@ -157,6 +153,7 @@ public class HabitOverview extends AppCompatActivity {
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(10);
         graph.addSeries(series);
+        */
 
         //Set calendar
         int completedThisMonth = 0;
