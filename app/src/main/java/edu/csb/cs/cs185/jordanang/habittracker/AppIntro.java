@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
@@ -30,7 +29,6 @@ public class AppIntro extends com.github.paolorotolo.appintro.AppIntro{
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-            Toast.makeText(getApplicationContext(), "Opened before", Toast.LENGTH_SHORT).show();
             finish();
         }
 
